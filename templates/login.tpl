@@ -45,40 +45,33 @@
             </header>
 
             <section>
-                <div id="registration-container">
-
-                    <form class="registration" method="post">
-                        <h1>Registration</h1>
+                <div id="login-container">
+                    <form class="login" method="post">
+                        <h1>Login</h1>
                         <hr>
-                        <div class="left">
-                            <label for="first-name">First Name</label>
-                            <input type="text" id="first-name" name="first-name" placeholder="First Name">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="username">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="*******">
+                        <div class="input-verification" >
+                            <label for="verification">Verification</label>
+                            <input type="password" id="verification" name="verification" placeholder="Secret Code">
                         </div>
-                        <div class="right">
-                            <label for="last-name">Last Name</label>
-                            <input type="text" id="last-name" name = "last-name" placeholder="Last Name">
-                        </div>
-                        <div class="both">
-                            <label for="email">Email</label>
-                            <input type="text" id="email" name="email" placeholder="you@example.org">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" maxlength="15" placeholder="username" >
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" placeholder="*******">
-                            <label for="confirm">Confirm Password</label>
-                            <input type="password" id="confirm" name="confirm" placeholder="********">
-                        </div>
-                        <div class="checkbox-container">
-                            <input  id="checkbox-registration" name="checkbox-registration"  type="checkbox">
-                            <label for="checkbox-registration">Two step login</label>              
-                        </div>
-                        <input id="button-submit-register" type="submit" value ="Register">
 
+
+                        <div class="checkbox-container">
+                            <input  id="checkbox-rememberme" name="checkbox-rememberme"  type="checkbox">
+                            <label for="checkbox-rememberme">Remember me</label>              
+                        </div>
+                        <input id="button-submit-login" type="submit" value ="Login">
                         <hr>
                     </form>
                 </div>
 
             </section>
+
+
+
         </div>
         <footer>
             <div id="footer">

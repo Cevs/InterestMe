@@ -1,3 +1,27 @@
+<?php
+/* Smarty version 3.1.31, created on 2017-05-26 18:55:09
+  from "C:\xampp\htdocs\InterestMe\templates\login.tpl" */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.31',
+  'unifunc' => 'content_59285ded904eb6_37442371',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '2a12fd6f2796c79ad741adea50196e5125d0e19e' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\InterestMe\\templates\\login.tpl',
+      1 => 1495817709,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_59285ded904eb6_37442371 (Smarty_Internal_Template $_smarty_tpl) {
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,8 +29,12 @@
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
         <!-- Importing jquery files -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="js/index_jquery.js" type="text/javascript"></script> 
+        <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="js/index_jquery.js" type="text/javascript"><?php echo '</script'; ?>
+> 
         <!-- Importing jquery files -->
     </head>
 
@@ -45,40 +73,33 @@
             </header>
 
             <section>
-                <div id="registration-container">
-
-                    <form class="registration" method="post">
-                        <h1>Registration</h1>
+                <div id="login-container">
+                    <form class="login" method="post">
+                        <h1>Login</h1>
                         <hr>
-                        <div class="left">
-                            <label for="first-name">First Name</label>
-                            <input type="text" id="first-name" name="first-name" placeholder="First Name">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="username">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="*******">
+                        <div class="input-verification" >
+                            <label for="verification">Verification</label>
+                            <input type="password" id="verification" name="verification" placeholder="Secret Code">
                         </div>
-                        <div class="right">
-                            <label for="last-name">Last Name</label>
-                            <input type="text" id="last-name" name = "last-name" placeholder="Last Name">
-                        </div>
-                        <div class="both">
-                            <label for="email">Email</label>
-                            <input type="text" id="email" name="email" placeholder="you@example.org">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" maxlength="15" placeholder="username" >
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" placeholder="*******">
-                            <label for="confirm">Confirm Password</label>
-                            <input type="password" id="confirm" name="confirm" placeholder="********">
-                        </div>
-                        <div class="checkbox-container">
-                            <input  id="checkbox-registration" name="checkbox-registration"  type="checkbox">
-                            <label for="checkbox-registration">Two step login</label>              
-                        </div>
-                        <input id="button-submit-register" type="submit" value ="Register">
 
+
+                        <div class="checkbox-container">
+                            <input  id="checkbox-rememberme" name="checkbox-rememberme"  type="checkbox">
+                            <label for="checkbox-rememberme">Remember me</label>              
+                        </div>
+                        <input id="button-submit-login" type="submit" value ="Login">
                         <hr>
                     </form>
                 </div>
 
             </section>
+
+
+
         </div>
         <footer>
             <div id="footer">
@@ -87,4 +108,5 @@
         </footer>
 
     </body>
-</html>
+</html><?php }
+}

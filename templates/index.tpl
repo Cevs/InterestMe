@@ -32,7 +32,7 @@
                         </ul>
                     </div>
                     <div class="nav-button-wrapper">
-                        <button type="button" class="button-login" >Log In</button>
+                        <button type="button" class="button-login" onclick="window.parent.location.href='login.php'">Log In</button>
                         <button type="button" class="button-singin" onclick="window.parent.location.href='register.php'" >Sing In</button>
                     </div>
                 </div>
