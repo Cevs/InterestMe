@@ -1,3 +1,27 @@
+<?php
+/* Smarty version 3.1.31, created on 2017-05-24 18:23:17
+  from "C:\xampp\htdocs\InterestMe\templates\index.tpl" */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.31',
+  'unifunc' => 'content_5925b375ad95d0_55553055',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'cc2be3f7f03ca4090f5e061e80572d251afe647b' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\InterestMe\\templates\\index.tpl',
+      1 => 1495635726,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5925b375ad95d0_55553055 (Smarty_Internal_Template $_smarty_tpl) {
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,8 +29,12 @@
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
         <!-- Importing jquery files -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="js/index_jquery.js" type="text/javascript"></script> 
+        <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="js/index_jquery.js" type="text/javascript"><?php echo '</script'; ?>
+> 
         <!-- Importing jquery files -->
     </head>
 
@@ -49,4 +77,5 @@
         </footer>
     </body>
 
-</html>
+</html><?php }
+}

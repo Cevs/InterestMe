@@ -3,13 +3,18 @@ $(document).ready(function () {
     
     $("#expand-collpase-button").click(hideShowNavigationMenu);
     $(window).resize(checkWindowSize);
+    
     //change class to all child elements of parent .nav-list-item
-    $(".nav-list-item").on('click','a',changeState);
+    //REMOVED: $(".nav-list-item").on('click','a',changeState);
+    //  -> Its causing problems with calling php scripts
+    
+ 
     
     
     
     
-    /*
+    
+    /*REMOVED
      * Remove all active class from navigation and replace it with inactive
      * Add active class to current selected navigation item
      * @return false
@@ -22,10 +27,7 @@ $(document).ready(function () {
            $(this).removeClass("inactive");
            $(this).addClass("active");
         }
-        return false;
-        
-        
-        
+        return false; 
     }
 
     /*
