@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="hr">
     <head>
+        <meta charset="UTF-8">
         <title>InterestMe</title>
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
         <!-- Importing jquery files -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="js/jquery.js" type="text/javascript"></script> 
+        <script src="js/jquery.js" type="text/javascript"></script>
         <!-- Importing recaptcha -->
         <script src='https://www.google.com/recaptcha/api.js'></script>
    
@@ -45,11 +46,13 @@
 
                 </nav>
             </header>
+            
+            
 
             <section>
                 <div id="registration-container">
 
-                    <form id ="form-registration" class="registration" method="post" action="http://barka.foi.hr/WebDiP/2016/materijali/zadace/ispis_forme.php" novalidate="novalidate">
+                    <form id ="form-registration" method="post" class="registration"  action="register.php" novalidate="novalidate">
                         <h1>Registration</h1>
                         <hr>
                         <div class="left">
@@ -75,7 +78,7 @@
                                 <input  id="checkbox-registration" name="checkbox-registration"  type="checkbox">
                                 <label for="checkbox-registration">Two step login</label>              
                             </div>
-                            <input id="button-submit-register" type="submit" value ="Register">
+                            <input id="button-submit-register" type="submit" name="submit" value ="Register">
                         </div>
                         <div class="g-recaptcha" data-sitekey="6LfyJiMUAAAAAMW7q2t34K4E3koBWc-kfdZh3DuF"></div>
                         <hr>
@@ -85,6 +88,7 @@
 
             </section>
         </div>
+        
         <footer>
             <div id="footer">
                 <a class="about-author" href="#">&copy; 2017. A. Martinčević</a>

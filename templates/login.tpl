@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="hr">
     <head>
+        <meta charset="UTF-8">
         <title>InterestMe</title>
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
