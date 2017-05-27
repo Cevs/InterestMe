@@ -8,7 +8,12 @@ html, body {
    
 }
 #body-registration{
-    background-color:#DDE0EC;
+   
+    
+}
+body{
+     background-image: url(../images/image.jpg);
+     background-size: 100%;
 }
 
 html { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }   
@@ -373,7 +378,9 @@ button > * {
 /*-------------------------------------------------------Registration-----------------------------------------------------*/
 
 
-
+.submit-container{
+    padding-top:15px;
+}
 
 
 h1 {
@@ -389,9 +396,9 @@ h1 {
 .registration {
     margin:0 auto;
     width: 400px;
-    height: 550px;
+    height: 620px;
     padding-bottom: 20px;
-    padding-top:20px;
+    padding-top:40px;
     padding-left:50px;
     padding-right:50px;
     box-sizing: border-box;
@@ -432,8 +439,7 @@ h1 {
     font-weight: 300;
     font-style: italic;
     color: rgba(24,141,208,0.8);
-    border-bottom: 1px dashed rgba(185,185,185,1);
-    padding-bottom: 15px;
+   
 }
 
 .left {
@@ -577,8 +583,7 @@ p.agree {
     font-weight: 300;
     font-style: italic;
     color: rgba(24,141,208,0.8);
-    border-bottom: 1px dashed rgba(185,185,185,1);
-    padding-bottom: 15px;
+
 }
 #button-submit-login{
     margin-top: 15px;
@@ -614,4 +619,16 @@ p.agree {
 .input-verification{
     display:none;
     
+}
+
+/*----------------------Ostalo------------------------------*/
+.input-alert{
+    border: 1px solid red !important;
+    /*B33A3A*/
+}
+
+.alert-text{
+    padding:0;
+    margin:0;
+    color:red !important;
 }

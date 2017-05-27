@@ -6,7 +6,7 @@
         <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
         <!-- Importing jquery files -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="js/index_jquery.js" type="text/javascript"></script> 
+        <script src="js/jquery.js" type="text/javascript"></script> 
         <!-- Importing jquery files -->
     </head>
 
@@ -46,7 +46,7 @@
 
             <section>
                 <div id="login-container">
-                    <form class="login" method="post">
+                    <form id ="form-login" class="login" method="post"  action="http://barka.foi.hr/WebDiP/2016/materijali/zadace/ispis_forme.php" novalidate="novalidate">
                         <h1>Login</h1>
                         <hr>
                         <label for="username">Username</label>
