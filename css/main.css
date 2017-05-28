@@ -150,6 +150,23 @@ button > * {
     vertical-align: middle;
 }
 
+/*-----------------------------------------Registration notification--------------------------*/
+.notification{
+    margin:0 auto;
+    width: 500px;
+    height:300px;
+    padding:30px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow:5px 5px 5px #999; 
+}
+  
+.text-notification{
+    font-size:22px;
+    text-align: center;
+}
+
+
 /*------------------------------------------------------------------------------------------------------------------*/
 /*Small*/
 @media screen and (max-width:480px){
@@ -205,7 +222,17 @@ button > * {
         height:15px;
     }
     
+    
+    .notification{
+        margin:0 auto;
+        width: 400px;
+        height:300px;
+    }
 
+    .text-notification{
+        font-size:18px;
+        text-align: center;
+    }
 
 }
 /*Medium Small*/

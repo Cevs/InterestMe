@@ -1,7 +1,7 @@
 <?php
     include ('libraries/Smarty/libs/Smarty.class.php');
     include ("database.class.php");
-    include("sesion.class.php");
+    include("session.class.php");
     
     $errorArray =  [];
     $link = "";
@@ -146,7 +146,7 @@
         $to = $email;
         $subject = "Activation link";
         $body = "Click on  $link for activating account";
-        $from = "From: ";
+        $from = "From: alemartin@foi.hr";
        
         mail($to,$subject,$body,$from);
     }
