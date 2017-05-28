@@ -7,10 +7,7 @@ html, body {
     position:relative;
    
 }
-#body-registration{
-   
-    
-}
+
 body{
      background-image: url(../images/image.jpg);
      background-size: 100%;
@@ -567,7 +564,7 @@ p.agree {
 .login {
     margin:0 auto;
     width: 400px;
-    height: 380px;
+    height: 370px;
     padding-bottom: 20px;
     padding-top:20px;
     padding-left:50px;
@@ -643,10 +640,6 @@ p.agree {
     position: relative;
 }
 
-.input-verification{
-    display:none;
-    
-}
 
 /*----------------------Ostalo------------------------------*/
 .input-alert{

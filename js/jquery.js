@@ -207,7 +207,7 @@ $(document).ready(function () {
             if ($("#password").val() === "") {
                 warning = "empty field";
             } else {
-                warning = "Too weak password";
+                warning = "Password too weak";
             }
             $("#password").addClass("input-alert");
             $("#password").after('<p id ="text-password" class="alert-text">' + warning + '</p>');

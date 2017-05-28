@@ -47,24 +47,26 @@
 
             <section>
                 <div id="login-container">
-                    <form id ="form-login" class="login" method="post"  action="http://barka.foi.hr/WebDiP/2016/materijali/zadace/ispis_forme.php" novalidate="novalidate">
+                    <form id ="form-login" class="login" method="post"  action="login.php" novalidate="novalidate">
                         <h1>Login</h1>
                         <hr>
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="username">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="*******">
-                        <div class="input-verification" >
+                        <label for="login-username">Username</label>
+                        <input type="text" id="login-username" name="username" placeholder="username" value="{$username}">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" placeholder="*******" value="{$password}">
+                        <div style="display:{$display}" >
                             <label for="verification">Verification</label>
                             <input type="password" id="verification" name="verification" placeholder="Secret Code">
                         </div>
-
+                        <div>
+                            {$message}
+                        </div>
 
                         <div class="checkbox-container">
                             <input  id="checkbox-rememberme" name="checkbox-rememberme"  type="checkbox">
                             <label for="checkbox-rememberme">Remember me</label>              
                         </div>
-                        <input id="button-submit-login" type="submit" value ="Login">
+                        <input id="button-submit-login" name ="login" type="submit" value ="Login">
                         <hr>
                     </form>
                 </div>

@@ -28,7 +28,7 @@
             $timeNow = date('Y-m-d H:i:s');
         
             if($timeNow <= $expirationDate ){
-                $sql = "UPDATE korisnici SET status_korisnickog_racuna = 'AKTRIVIRAN' WHERE id_korisnik = "
+                $sql = "UPDATE korisnici SET status_korisnickog_racuna = 'AKTIVIRAN' WHERE id_korisnik = "
                        ."$idUser AND korisnicko_ime = '".$username."' AND aktivacijski_kod = '".$activationCode."';";
                 $db->updateDB($sql);
                 $smarty->assign("title","Successful Registration...");

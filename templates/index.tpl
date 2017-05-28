@@ -42,7 +42,7 @@
                 </nav>
             </header>
 
-            <p>Home</p>
+            <p>{$tekst}</p>
         </div>
         <footer>
             <div id="footer">

@@ -28,16 +28,17 @@
  * @author Matija Novak <matija.novak@foi.hr>
  */
 
-class Sesija {
+class Session {
 
-    const KORISNIK = "korisnik";
-    const KOSARICA = "kosarica";
-    const SESSION_NAME = "prijava_sesija";
+    const USER = "user";
+    const BASKET = "basket";
+    const SESSION_NAME = "login_session";
     //Dodano, ubacit u bazu
-    const TIP = "tip";
-    const GRESKE = "greslke";
+    const TYPE = "type";
+    const LEVEL = "level";
+    const ERROR = "error";
 
-    static function kreirajSesiju() {
+    static function createSession() {
         session_name(self::SESSION_NAME);
 
         if (session_id() == "") {
@@ -46,43 +47,42 @@ class Sesija {
     }
 
     //idu 3 parametra treba nadopunit
-    static function kreirajKorisnika($korIme, $tip, $brojPogresnihUnosa) {
-        self::kreirajSesiju();
+    static function createUser($username, $type, $level, $numberIncorrectLogin) {
+        self::createSession();
  
-        $_SESSION[self::KORISNIK]['korisnickoIme'] = $korIme;
-        $_SESSION[self::KORISNIK]['tipKorisnika'] = $tip;
-        $_SESSION[self::KORISNIK]['brojPogresnihUnosa']= $brojPogresnihUnosa;
+        $_SESSION[self::USER]['username'] = $username;
+        $_SESSION[self::USER]['type'] = $type;
+        $_SESSION[self::USER]['level']=$level;
+        $_SESSION[self::USER]['$numberIncorrectLogin']= $numberIncorrectLogin;
     }
 
-    static function kreirajKosaricu($kosarica) {
-        self::kreirajSesiju();
-        $_SESSION[self::KOSARICA] = $kosarica;
+    static function createBasket($basket) {
+        self::createSession();
+        $_SESSION[self::BASKET] = $basket;
     }
 
-    static function dajKorisnika() {
-        self::kreirajSesiju();
-        if (isset($_SESSION[self::KORISNIK])) {
-            $korisnik = $_SESSION[self::KORISNIK];
+    static function returnUser() {
+        self::createSession();
+        if (isset($_SESSION[self::USER])) {
+            $user = $_SESSION[self::USER];
         } else {
             return null;
         }
-        return $korisnik;
+        return $user;
     }
 
-    static function dajKosaricu() {
-        self::kreirajSesiju();
-        if (isset($_SESSION[self::KOSARICA])) {
-            $kosarica = $_SESSION[self::KOSARICA];
+    static function returnBasket() {
+        self::createSession();
+        if (isset($_SESSION[self::BASKET])) {
+            $basket = $_SESSION[self::BASKET];
         } else {
             return null;
         }
-        return $kosarica;
+        return $basket;
     }
 
-    /**
-     * Odjavljuje korisnika tj. briše sesiju
-     */
-    static function obrisiSesiju() {
+    
+    static function deleteSession() {
         session_name(self::SESSION_NAME);
 
         if (session_id() != "") {
@@ -92,15 +92,15 @@ class Sesija {
     }
     
     //vraca array
-    static function vratiPodatke(){
-        self::kreirajSesiju();
-        if(isset($_SESSION[self::KORISNIK])){
-            $podaci = $_SESSION[self::KORISNIK];
+    static function returnUserData(){
+        self::createSession();
+        if(isset($_SESSION[self::USER])){
+            $data = $_SESSION[self::USER];
         }
         else{
             return "";
         }
-        return $podaci;
+        return $data;
     }
 
 }
