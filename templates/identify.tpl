@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-    <head lang="hr">
+<html lang="hr">
+    <head >
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>InterestMe</title>
@@ -45,10 +45,18 @@
 
             <section >
                 <div class ="notification">
-                    <h1>{$title}</h1>
-                    <hr>
-                    <p class="text-notification">{$message}</p><br>
-                    <h1><a href="{$link}">{$link_message}</a></h1>
+                    <form   method="post" action="identify.php" novalidate="novalidate">
+                        <h1>{$title}</h1>
+                        <hr>
+                        <p class="text-notification">{$message}</p><br>
+                       
+                        <label for="password-reset-email">Email: </label>
+                        <input type="text" id="password-reset-email" name="password-reset-email" placeholder="you@example.org" maxlength="35" size="25">
+                        <input type="submit" name ="submit" value ="Reset" style="width: 10em;">
+                      
+                        
+                    </form>
+                 
                 </div>
             </section>
             

@@ -18,7 +18,7 @@
     $passwordInput = "";
     $twosteppassword = "";
     $display = "none";
-    $height = '370px'; //css height
+    $height = ''; //css height
     
     //if user want to login
     if(isset($_POST['login'])){
@@ -60,7 +60,7 @@
                     }
                     //Two step verification is required
                     else{
-                        $height = '450px';
+                        $height = '490px';
                         $usernameInput = $_POST['username'];
                         $passwordInput = $_POST['password'];
                         if(isset($_POST['verification'])&& !empty($_POST['verification'])){

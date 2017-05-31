@@ -55,14 +55,17 @@ $(document).ready(function () {
 
     /*-------------------------------------------------Register------------------------------------------------------*/
 
+
+
     var usernameExists = false;
+    
     $("#username").focusout(function () {
         var username = $("#username").val();
 
         if (username !== '') {
             $.ajax({
 
-                url: "username_handler.php",
+                url: "emailUsernameHandler.php",
                 type: "post",
                 async: false,
                 data: {
@@ -89,6 +92,43 @@ $(document).ready(function () {
             setWarningUsername();
         }
     });
+    
+    var emailExists = false;
+     $("#email").focusout(function () {
+        var email = $("#email").val();
+
+        if (email !== '') {
+            $.ajax({
+
+                url: "emailUsernameHandler.php",
+                type: "post",
+                async: false,
+                data: {
+                    "email": email
+                },
+                success: function (data) {
+                    if (data.trim() == 0) {
+                        emailExists = false;
+                    } else {
+                        emailExists = true;
+                    }
+
+
+                    if (emailExists) {
+                        setWarningEmail();
+                    } else {
+                        removeWarningEmail();
+                    }
+
+                    console.log("number of rows Email: " + data);
+                }
+            });
+        } else {
+            setWarningEmail();
+        }
+    });
+
+
 
     $("#first-name").focusout(function () {
         if (!(verificationFirstName()))
@@ -110,7 +150,9 @@ $(document).ready(function () {
         if (!verificationEmail()) {
             setWarningEmail();
         } else {
-            removeWarningEmail();
+            if(!emailExists){
+                removeWarningEmail();
+            }         
         }
     });
 
@@ -184,9 +226,16 @@ $(document).ready(function () {
             var warning = "";
             if ($("#email").val() === "") {
                 warning = "empty field";
-            } else {
-                warning = "incorrect email";
             }
+            else if(emailExists){
+                warning = "Email already in use";
+            }
+            else{
+                warning = "Incorrect email";
+            }
+            
+    
+            console.log("warning: "+warning);
             $("#email").addClass("input-alert");
             $("#email").after('<p id ="text-email" class="alert-text">' + warning + '</p>');
         }
@@ -321,8 +370,8 @@ $(document).ready(function () {
 
 
     $("#form-registration").submit(function (e) {
-        if (!(verificationFirstName() && verificationLastName() && verificationPassword() && vallidationPasswordConfirmPassword() && verificationEmail() && !usernameExists)) {
-            console.log("Username: " + usernameExists);
+        if (!(verificationFirstName() && verificationLastName() && verificationPassword() && vallidationPasswordConfirmPassword() && verificationEmail() && !usernameExists && !emailExists)) {
+            console.log("Error in form");
             // preventDefault must be at the beginning of block;
             e.preventDefault();
             if (!verificationFirstName())
@@ -332,13 +381,9 @@ $(document).ready(function () {
             if (!verificationPassword())
                 setWarningPassword();
             if (!vallidationPasswordConfirmPassword())
-                setWarningConfirm();
+                setWarningConfirmPassword();
             if (!verificationEmail())
                 setWarningEmail();
-
         }
     });
-
-
-
 });
