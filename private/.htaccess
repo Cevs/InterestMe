@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Administration"
+AuthUserFile /var/www/webdip.barka.foi.hr/2016_projekti/WebDiP2016x079/privatno/.htpasswd
+require valid-user
