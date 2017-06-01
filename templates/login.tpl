@@ -49,8 +49,8 @@
             </header>
 
             <section>
-                <div id="login-container">
-                    <form id ="form-login" class="login" method="post"  action="login.php" novalidate="novalidate" style="height:{$height};">
+                <div class="form-container">
+                    <form id ="form-login" class="login" method="post"  action="login.php" novalidate="novalidate" style="height:{$height};" autocomplete="off">
                         <h1>Login</h1>
                         <hr>
                         <label for="login-username">Username</label>

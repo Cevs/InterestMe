@@ -1,6 +1,8 @@
 <?php
     require ("database.class.php");
     include ('libraries/Smarty/libs/Smarty.class.php');
+    include ("virtual_time.class.php");
+    
     if(isset($_GET["activationcode"]) && !empty($_GET["activationcode"])){
         
         $smarty = new Smarty();
@@ -25,9 +27,10 @@
         //User account exist
         if($idUser != -1)
         {
-            $timeNow = date('Y-m-d H:i:s');
+            $virtual = new VirtualTime();
+            $virtualTime = $virtual->getVirtualTime();
         
-            if($timeNow <= $expirationDate ){
+            if($virtualTime <= $expirationDate ){
                 $sql = "UPDATE korisnici SET status_korisnickog_racuna = 'AKTIVIRAN' WHERE id_korisnik = "
                        ."$idUser AND korisnicko_ime = '".$username."' AND aktivacijski_kod = '".$activationCode."';";
                 $db->updateDB($sql);

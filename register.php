@@ -2,6 +2,7 @@
     include ('libraries/Smarty/libs/Smarty.class.php');
     include ("database.class.php");
     include("session.class.php");
+    include ("virtual_time.class.php");
     
     $errorArray =  [];
     $link = "";
@@ -63,6 +64,7 @@
        }
        
        if(!$error){
+           
            $db = new DataBase();
            $twoStepLogin = isset($_POST['checkbox-registration'])?1:0;
            
@@ -75,15 +77,16 @@
            $link = "http://barka.foi.hr/WebDiP/2016_projekti/WebDiP2016x079/activation.php?activationcode=$activationCode";
            
       
+           $virtual = new VirtualTime();
+           $virtualTime = $virtual->getVirtualTime();
            
-           $date = date('Y-m-d'); //pr. 2012-03-06
-           $codeExpiration = date('Y-m-d H:i:s', strtotime('5 hour'));
-      
+           $codeExpiration = date("Y-m-d H:i:s", strtotime($virtualTime."+ 5 hours"));
            
            
-           $sql = "INSERT INTO korisnici (ime, prezime, email, korisnicko_ime, lozinka, kriptirana_lozinka, datum_registriranja, dvorazinska_prijava, aktivacijski_kod, "
-                  . "vrijeme_isteka_aktivacijskog_koda, status_korisnickog_racuna, vrsta_korisnika_id, neuspjesne_prijave) VALUES ('".$_POST['first-name']."', '".$_POST['last-name']."', '".$_POST['email']."', '".$_POST['username']
-                  ."', '".$_POST['password']."', '".$hash."', '".$date."', $twoStepLogin, '".$activationCode."', '".$codeExpiration."', 'NIJE AKTIVIRAN', 1, 0)";
+           
+           $sql = "INSERT INTO korisnici (ime, prezime, email, korisnicko_ime, lozinka, kriptirana_lozinka, datum_registriranja, dvorazinska_prijava, zakljucan_pristup, aktivacijski_kod, "
+                   . "vrijeme_isteka_aktivacijskog_koda, status_korisnickog_racuna, vrsta_korisnika_id, neuspjesne_prijave) VALUES ('".$_POST['first-name']."', '".$_POST['last-name']."', '".$_POST['email']."', '".$_POST['username']
+                   ."', '".$_POST['password']."', '".$hash."', '".$virtualTime."', $twoStepLogin,0,'".$activationCode."', '".$codeExpiration."', 'NIJE AKTIVIRAN', 1, 0)";
            
            $db->insertDB($sql);
           
@@ -143,15 +146,15 @@
     }
     
      function sendEmail($link, $email){
+        
         $to = $email;
         $subject = "Activation link";
         $body = "Click on  $link for activating account";
         $from = "From: alemartin@foi.hr";
-       
         mail($to,$subject,$body,$from);
     }
        
     $smarty = new Smarty();
-    //$smarty->assign("error_array", $errorArray);
+    //$smarty->assign("error_array",$errorArray);
     $smarty->display("templates/register.tpl");
  ?>

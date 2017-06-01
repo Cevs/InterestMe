@@ -6,11 +6,12 @@
         <title>InterestMe</title>
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+         <!-- Importing recaptcha -->
+        <script src='https://www.google.com/recaptcha/api.js'></script>
         <!-- Importing jquery files -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="js/jquery.js" type="text/javascript"></script>
-        <!-- Importing recaptcha -->
-        <script src='https://www.google.com/recaptcha/api.js'></script>
+       
 
     </head>
 
@@ -80,9 +81,9 @@
                                 <input id="checkbox-registration" name="checkbox-registration"  type="checkbox">
                                 <label for="checkbox-registration">Two step login</label>              
                         </div>
-                        <div class="g-recaptcha" data-sitekey="6LeeKiMUAAAAAFB0HEs5IzMjWUbAb_I5EGn9Wdnd"></div>
-                        <input id="button-submit-register" type="submit" name ="submit" value ="Register">
-                        
+                        <div class="g-recaptcha"  data-sitekey="6LeeKiMUAAAAAFB0HEs5IzMjWUbAb_I5EGn9Wdnd"></div>
+                        <input id="button-submit-register" type="submit" name ="submit" value ="Register" >
+                       
                         
                         <hr>
 

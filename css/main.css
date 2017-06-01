@@ -6,11 +6,10 @@ html, body {
     position:relative;
 
 }
-
-
 body{
-    background-image: url(../images/image.jpg);
-    background-size: 100%;
+    /*background-image: url(../images/image.jpg);
+    background-size: 100%;*/
+    background-color: #D4D2D3;
 
 }
 
@@ -45,6 +44,7 @@ header{
 
 #nav-list-items {
     list-style: none;
+    width:100%;
     background-color: #415E6C;
     text-align: center;
     padding: 0;
@@ -53,6 +53,7 @@ header{
 nav li {
     font-size: 1.2em;
     line-height: 30px;
+    width:100%;
     height: 30px;
     font-family: 'Kaushan Script', cursive;
 }
@@ -60,7 +61,8 @@ nav li {
 nav a {
     text-decoration: none;
     color: #fff;
-    display: block;
+    width:100%;
+    display: inline-block;
     transition: .3s background-color;
 }
 
@@ -294,6 +296,8 @@ p.agree {
     background: #fff;
 }
 
+
+
 .checkbox-container{
 
     float:left;
@@ -318,7 +322,7 @@ p.agree {
     width:100%;
 }
 
-#login-container{
+.form-container{
     width:100%;
     position:relative;
     top:50px;
@@ -471,7 +475,131 @@ p.agree {
 }
 
 
-/*------------------------------------------------------------------------------------------------------------------*/
+#user-print{
+    background-color:#fff;
+}
+
+/*-------------------------------TABLE -------------------------------------------------------------------*/
+
+table{
+    widh:100%;
+    border-collapse: collapse;
+}
+
+
+
+.users-table th{
+    background-color: #415E6C;
+    color: white;
+    font-weight: bold;
+}
+
+.users-table tr:nth-child(even){
+    background-color: #f2f2f2
+}
+
+.users-table th,td{
+    padding: 15px;
+    border: 1px solid #ccc; 
+    text-align: left; 
+}
+.table-tittle{
+    background-color: #415E6C;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.button-unlock{
+    margin-top:15px;
+    background-color: #009900;
+    color: #fff;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+
+
+/*-------------------------------------------Time-------------------------------------------------------------------*/
+
+
+.time-settings{
+    margin:0 auto;
+    width: 400px;
+    height:200px;
+    padding-bottom: 20px;
+    padding-top:20px;
+    padding-left:50px;
+    padding-right:50px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow:5px 5px 5px #999;
+
+}
+
+.time-settings label {
+    display: block;
+    font: 16px 'Roboto Condensed', sans-serif;
+    padding: 4px 0.25em;
+}
+
+.time-settings input {
+    width: 100%;
+    height: 40px;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+    border: 1px solid #2F98D4;
+    border-radius: 2px;
+    background-color:#fff;
+
+
+}
+
+.time-settings input:hover {
+    color: #2F98D4;
+}
+
+.time-settings input:focus {
+    outline: none;
+}
+
+.time-settings p {
+    text-align: center;
+    font: 14px 'Roboto Condensed', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(24,141,208,0.8);
+
+}
+
+#button-submit-time{
+    text-align: center;
+    margin-top: 15px;
+    width:100%;
+    border: 1px solid #415E6C;
+    color: #fff;
+    background: #415E6C;
+    border-radius: 3px;
+    font-size: 18px;
+
+
+}
+
+#button-submit-time:hover{
+    border: 1px solid #415E6C;
+    color: #415E6C;
+    background: #fff;
+
+}
+
+
+
 /*Small*/
 @media screen and (max-width:480px){
     body{
@@ -574,6 +702,18 @@ p.agree {
         padding-right:50px;
 
     }
+    
+    .time-settings {
+        margin:0 auto;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+
+    }
+    
+    .time-settings label {
+        font-size:14px;
+    }
 
 }
 /*Medium Small*/
@@ -657,6 +797,17 @@ p.agree {
         height:250px;
 
     }
+    
+    .time-settings {
+        margin:0 auto;
+        width: 400px;
+        height: 100%;
+        background-color: #fff;
+
+    }
+    .time-settings label {
+        font-size:15px;
+    }
 }
 /*Medium*/
 @media screen and (min-width: 700px) and (max-width: 870px)  {
@@ -668,7 +819,7 @@ p.agree {
         font-size:25px;
     }
     nav li {
-        width: 100px;
+        width: 150px;
         border-bottom: none;
         height: 40px;
         line-height: 40px;
@@ -758,6 +909,18 @@ p.agree {
         height:300px;
 
     }
+    
+    .time-settings {
+        margin:0 auto;
+        width: 500px;
+        height: 100%;
+        background-color: #fff;
+
+    }
+    
+    .time-settings label {
+        font-size:16px;
+    }
 }
 
 /*Largest*/
@@ -767,7 +930,7 @@ p.agree {
         font-size: 18px;
     }
     nav li {
-        width: 120px;
+        width: 150px;
         border-bottom: none;
         height: 50px;
         line-height: 50px;
@@ -794,7 +957,7 @@ p.agree {
 
     .nav-links{
         float:left;
-        padding-left:50px;
+        padding-left:20px;
     }
     .nav-button-wrapper{
         margin-right:10px;
@@ -881,6 +1044,57 @@ p.agree {
     }
 
 }
+
+
+
+/*
+Turning table into two column list
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	Force table to not be like tables anymore 
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	 Hide table headers (but not display: none;, for accessibility) 
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		Behave  like a "row" 
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		Now like a table header 
+		position: absolute;
+		Top/left values mimic padding
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	
+	td:nth-of-type(1):before { content: "Username"; }
+	td:nth-of-type(2):before { content: "Last Name"; }
+	td:nth-of-type(3):before { content: "First Name"; }
+	td:nth-of-type(4):before { content: "Email"; }
+	td:nth-of-type(5):before { content: "Password"; }
+	td:nth-of-type(6):before { content: "User type"; }
+
+}*/
 
 
 

@@ -30,7 +30,7 @@ $(document).ready(function () {
      * 
      */
     function hideShowNavigationMenu() {
-
+       
         if ($("#nav-list-items").is(":visible")) {
             $("#expand-collapse-picture").attr('src', "images/expand.png");
             $("#nav-list-items").hide();
@@ -65,7 +65,7 @@ $(document).ready(function () {
         if (username !== '') {
             $.ajax({
 
-                url: "emailUsernameHandler.php",
+                url: "email_username_handler.php",
                 type: "post",
                 async: false,
                 data: {
@@ -100,7 +100,7 @@ $(document).ready(function () {
         if (email !== '') {
             $.ajax({
 
-                url: "emailUsernameHandler.php",
+                url: "email_username_handler.php",
                 type: "post",
                 async: false,
                 data: {
@@ -367,6 +367,8 @@ $(document).ready(function () {
             return false;
         }
     }
+    
+   
 
 
     $("#form-registration").submit(function (e) {
