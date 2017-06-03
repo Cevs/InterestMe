@@ -13,35 +13,42 @@
     </head>
 
     <body>
-        <header>
-            <div class="nav-title-container" >
-                <button id="expand-collpase-button">
-                    <img id="expand-collapse-picture"  src="images/collapse.png" alt="button for collapsing or expending navigation view" >
-                </button>
+         <header>
+            <div id="header-container">
+                <div class="nav-title-container">
+                    <button id="expand-collpase-button">
+                        <img id="expand-collapse-picture"  src="images/collapse.png" alt="button for collapsing or expending navigation view">
+                    </button>
 
-                <h1 class="nav-title">InterestMe</h1>
-            </div>
-            <nav>
-                <div class="nav-container">
-                    <div class="nav-links">
-                        <ul id="nav-list-items">
-                            <li class="nav-list-item"><a  href="index.php" class="active" >Home</a></li>
-                            <li class="nav-list-item"><a  href="index.php" class="inactive" >Section1</a></li>
-                            <li class="nav-list-item"><a  href="index.php" class="inactive" >Section2</a></li>
-                            <li class="nav-list-item"><a  href="index.php" class="inactive" >Section3</a></li>
-                        </ul>
-                    </div>
+                    <h1 class="nav-title">InterestMe</h1>
                     <div class="nav-button-wrapper">
                         <button type="button" class="button-login" onclick="window.parent.location.href = 'login.php'">Log In</button>
                         <button type="button" class="button-singin" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
                     </div>
-                </div>
 
-            </nav>
+                </div>
+                <nav>
+                    <div class="nav-container">
+                        <div class="nav-links">
+                            <ul id="nav-list-items">
+                                <li class="nav-list-item"><a href="index.php" class="inactive" >Home</a></li>
+                                <li class="nav-list-item"><a href="index.php" class="inactive" >Section1</a></li>
+                                <li class="nav-list-item"><a href="index.php" class="inactive" >Section2</a></li>
+                                <li class="nav-list-item"><a href="index.php" class="inactive" >Section3</a></li>
+                                <li class="nav-list-item"><a href="login.php" class="active" >Login</a></li>
+
+                            </ul>
+                            <div class="nav-button-wrapper">
+                                <button type="button" class="button-login-mobile" onclick="window.parent.location.href = 'login.php'">Log In</button>
+                                <button type="button" class="button-singin-mobile" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
         </header>
 
         <div id="cont">
-            <section>
                 <div class ="notification">
                     <form   method="post" action="identify.php" novalidate="novalidate">
                         <h1>{$title}</h1>
@@ -56,11 +63,10 @@
                     </form>
 
                 </div>
-            </section>
         </div>
 
         <footer>
-            <div id="footer">
+            <div id="footer-identifiy" class="footer">
                 <a class="about-author" href="#">&copy; 2017. A. Martinčević</a>
             </div> 
         </footer>

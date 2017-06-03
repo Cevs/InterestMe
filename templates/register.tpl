@@ -21,6 +21,10 @@
                         <img id="expand-collapse-picture"  src="images/collapse.png" alt="button for collapsing or expending navigation view">
                     </button>
                     <h1 class="nav-title">InterestMe</h1>
+                    <div class="nav-button-wrapper">
+                        <button type="button" class="button-login" onclick="window.parent.location.href = 'login.php'">Log In</button>
+                        <button type="button" class="button-singin" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
+                    </div>
                 </div>
                 <nav>
                     <div class="nav-container">
@@ -35,8 +39,8 @@
                             </ul>
                         </div>
                         <div class="nav-button-wrapper">
-                            <button type="button" class="button-login" onclick="window.parent.location.href = 'login.php'">Log In</button>
-                            <button type="button" class="button-singin" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
+                            <button type="button" class="button-login-mobile" onclick="window.parent.location.href = 'login.php'">Log In</button>
+                            <button type="button" class="button-singin-mobile" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
                         </div>
                     </div>
                 </nav>
@@ -44,7 +48,7 @@
         </header>
 
         <div id="cont">
-            <section>
+     
                 <div id="registration-container">
                     <form id ="form-registration" class="registration" method="post" action="register.php" novalidate="novalidate" >
                         <h1>Registration</h1>
@@ -76,11 +80,11 @@
                         <hr>
                     </form>
                 </div>
-            </section>
+      
         </div>
 
         <footer>
-            <div id="footer">
+            <div id="footer-registration" class="footer">
                 <a class="about-author" href="#">&copy; 2017. A. Martinčević</a>
             </div>
         </footer>

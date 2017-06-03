@@ -3,7 +3,7 @@ html,body{
     width: 100%;
     padding:0;
     margin:0;
- 
+
 }
 body{
     /*background-image: url(../images/image.jpg);
@@ -79,22 +79,30 @@ nav a:hover {
 }
 
 
+.nav-title-container{
+    background-color: #415E6C;
+    text-align:center;
+    height:70px;
+}
+
 .nav-title{
     margin:0 auto;
     text-align: center;
-    background-color: #415E6C;
+    position:relative;
+    vertical-align:middle;
+    top:15px;
     padding-top:10px;
     padding-bottom:10px;
     color:#fff;
     font-size:30px;
     letter-spacing: 10px;
     font-family: 'Kaushan Script', cursive;
+    display:inline;
 }
 
 
 
 .button-login{
-
     border: 1px solid #32AD32;
     color: #fff;
     background: #009900;
@@ -102,6 +110,19 @@ nav a:hover {
 }
 
 .button-login:hover{
+    background: #fff;
+    color:#009900;
+}
+
+.button-login-mobile{
+    border: 1px solid #32AD32;
+    color: #fff;
+    background: #009900;
+    border-radius: 3px;
+    display:none;
+}
+
+.button-login-mobile:hover{
     background: #fff;
     color:#009900;
 }
@@ -119,6 +140,20 @@ nav a:hover {
     color:#E59400
 }
 
+.button-singin-mobile{
+    border: 1px solid #E9A72F;
+    color: #fff;
+    background: #E59400;
+    border-radius: 3px;
+    display:none;
+}
+
+.button-singin-mobile:hover{
+    background: #fff;
+    color:#E59400
+}
+
+
 #expand-collpase-button{
     position: relative;
     left:10px;
@@ -129,7 +164,15 @@ nav a:hover {
     padding:0;
     margin:0;
     width:70px;
-    height:50px;   
+    height:50px;
+    border: none;
+    outline:none;
+    outline-style: none;
+    
+}
+
+button::-moz-focus-inner {
+  border: 0;
 }
 
 #expand-collpase-button:hover{
@@ -174,8 +217,8 @@ button > * {
 
 .g-recaptcha{
     margin-bottom:30px;
+    width:100%;
 }
-
 
 
 
@@ -324,16 +367,16 @@ p.agree {
     color:#fff;
 }
 
-#footer{
-
-   
-    padding-top:30px;
+.footer{
+    padding-top:20px;
     text-align: center;
-    font-size: 25px;
-    height:60px;
+    font-size: 20px;
+    height:40px;
     background-color: #323334;
 
 }
+
+
 
 
 /*-----------------------------------------Login----------------------------------------*/
@@ -598,27 +641,19 @@ table{
     }
 
     .button-login{
-        border-radius: 0;
-        font-size:14px;
-        float:left;
-        padding:5px;
-        margin:0;width:50%;
+        display:none;
 
     }
     .button-singin{
-        border-radius: 0;
-        font-size:14px;
-        margin:0;
-        padding:5px;
-        width:50%;
+        display:none;
 
     }
 
     #expand-collpase-button{
         position:relative;
-        top:6px;
-        width: 50px;
-        height: 35px;
+        top:3px;
+        width: 30px;
+    
     }
 
     .nav-title{
@@ -645,7 +680,7 @@ table{
     .notification{
         margin:0 auto;
         width: 100%;
-        height:100%;
+        height:50%;
 
     }
 
@@ -691,7 +726,7 @@ table{
     .registration label{
         font-size:14px;
     }
-    
+
     .time-settings {
         margin:0 auto;
         width: 100%;
@@ -699,9 +734,33 @@ table{
         background-color: #fff;
 
     }
-    
+
     .time-settings label {
         font-size:14px;
+    }
+    .button-login-mobile{
+        display:inline;
+        border-radius: 0;
+        font-size:14px;
+        float:left;
+        padding:5px;
+        margin:0;width:50%;
+    }
+    
+    .button-singin-mobile{
+        display:inline;
+        border-radius: 0;
+        font-size:14px;
+        margin:0;
+        padding:5px;
+        width:50%;
+    }
+    
+    .footer{
+        height:30px;
+        padding-top:15px;
+        text-align: center;
+        font-size: 15px
     }
 
 }
@@ -712,19 +771,10 @@ table{
     }
 
     .button-login{
-        border-radius: 0;
-        float:left;
-        padding:5px;
-        font-size:15px;
-        margin:0;
-        width:50%;
+        display:none;
     }
     .button-singin{
-        border-radius: 0;
-        margin:0;
-        padding:5px;
-        font-size:15px;
-        width:50%;
+        display:none;
     }
 
     .nav-title{
@@ -740,16 +790,6 @@ table{
     }
 
 
-    #expand-collpase-button{
-        position:relative;
-        top:6px;
-        left:10px;
-        vertical-align: central;
-        width: 60px;
-        height: 40px;
-    }
-
-
     .login {
         margin:0 auto;
         width: 400px;
@@ -757,13 +797,13 @@ table{
         background-color: #fff;
 
     }
-    
+
     .registration{
         margin: 0 auto;
         width:100%;
         height: 100%;
     }
-     .registration label{
+    .registration label{
         font-size:15px;
     }
 
@@ -792,10 +832,10 @@ table{
     .notification{
         margin:0 auto;
         width:100%;
-        height:100%;
+        height:50%;
 
     }
-    
+
     .time-settings {
         margin:0 auto;
         width: 400px;
@@ -805,6 +845,25 @@ table{
     }
     .time-settings label {
         font-size:15px;
+    }
+    
+    .button-login-mobile{
+        display:inline;
+        border-radius: 0;
+        float:left;
+        padding:5px;
+        font-size:15px;
+        margin:0;
+        width:50%;
+    }
+    
+    .button-singin-mobile{
+        display:inline;
+        border-radius: 0;
+        margin:0;
+        padding:5px;
+        font-size:15px;
+        width:50%;
     }
 }
 /*Medium*/
@@ -900,7 +959,7 @@ table{
     .login label {
         font-size:16px;
     }
-    
+
     .registration label {
         font-size:16px;
     }
@@ -911,7 +970,7 @@ table{
         height:300px;
 
     }
-    
+
     .time-settings {
         margin:0 auto;
         width: 500px;
@@ -919,7 +978,7 @@ table{
         background-color: #fff;
 
     }
-    
+
     .time-settings label {
         font-size:16px;
     }
@@ -941,7 +1000,7 @@ table{
 
     nav li {
         float: left;
-        paading-bottom:1px #415E6C;
+        padding-bottom:1px #415E6C;
     }
 
     #nav-list-items{
@@ -993,39 +1052,44 @@ table{
     }
 }
 @media screen and (min-height: 550px) {
-   
 
-  
+
+
 }
 
 @media screen and (min-height: 300px) and (max-height: 550px) {
 
-    
-   
+
+
     #registration-container{ 
         position:relative;
         top:150px;
     }
 
- 
-    #footer{
+
+    #footer-login{
         position:relative;
-        top:240px;
+        top:50px;
+    }
+    
+    #footer-registration{
+        position:relative;
+        top:300px;
     }
 }
 
 @media screen and (max-height: 300px) {
 
     #registration-container{ 
-       
+
         position:relative;
         top:200px;
-        
+
     }
 
-    #footer{
+    #footer-login{
         position:relative;
-        margin-top:400px;
+        margin-top:100px;
     }
 
     .notification{
@@ -1043,46 +1107,46 @@ Turning table into two column list
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
-	Force table to not be like tables anymore 
-	table, thead, tbody, th, td, tr { 
-		display: block; 
-	}
-	
-	 Hide table headers (but not display: none;, for accessibility) 
-	thead tr { 
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-	
-	tr { border: 1px solid #ccc; }
-	
-	td { 
-		Behave  like a "row" 
-		border: none;
-		border-bottom: 1px solid #eee; 
-		position: relative;
-		padding-left: 50%; 
-	}
-	
-	td:before { 
-		Now like a table header 
-		position: absolute;
-		Top/left values mimic padding
-		top: 6px;
-		left: 6px;
-		width: 45%; 
-		padding-right: 10px; 
-		white-space: nowrap;
-	}
-	
-	
-	td:nth-of-type(1):before { content: "Username"; }
-	td:nth-of-type(2):before { content: "Last Name"; }
-	td:nth-of-type(3):before { content: "First Name"; }
-	td:nth-of-type(4):before { content: "Email"; }
-	td:nth-of-type(5):before { content: "Password"; }
-	td:nth-of-type(6):before { content: "User type"; }
+        Force table to not be like tables anymore 
+        table, thead, tbody, th, td, tr { 
+                display: block; 
+        }
+        
+         Hide table headers (but not display: none;, for accessibility) 
+        thead tr { 
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+        }
+        
+        tr { border: 1px solid #ccc; }
+        
+        td { 
+                Behave  like a "row" 
+                border: none;
+                border-bottom: 1px solid #eee; 
+                position: relative;
+                padding-left: 50%; 
+        }
+        
+        td:before { 
+                Now like a table header 
+                position: absolute;
+                Top/left values mimic padding
+                top: 6px;
+                left: 6px;
+                width: 45%; 
+                padding-right: 10px; 
+                white-space: nowrap;
+        }
+        
+        
+        td:nth-of-type(1):before { content: "Username"; }
+        td:nth-of-type(2):before { content: "Last Name"; }
+        td:nth-of-type(3):before { content: "First Name"; }
+        td:nth-of-type(4):before { content: "Email"; }
+        td:nth-of-type(5):before { content: "Password"; }
+        td:nth-of-type(6):before { content: "User type"; }
 
 }*/
 
