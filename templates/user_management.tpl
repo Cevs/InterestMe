@@ -14,7 +14,7 @@
 
     <body>
 
-         <header>
+        <header>
             <div id="header-container">
                 <div class="nav-title-container">
                     <button id="expand-collpase-button">
@@ -51,39 +51,39 @@
 
 
         <div id="cont">
-                <div class="table-container">
-                    <form  method="post" action="user_managment.php" >
-                        <table class="users-table">
-                            <thead>
-                                <tr>
-                                    <td class="table-tittle" colspan="9">Locked Users</td>
-                                </tr>
-                            </thead>
-                            <tr>  
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Register date</th>
-                                <th>Attempts</th> 
-                                <th>Status</th>
-                                <th>Lock</th>
-                                <th>Unlock</th>
+            <div class="table-container">
 
-                            </tr>
-                            <tbody id="table-users-body"></tbody>
-                            <tfoot class="hide-if-no-paging" >
-                            <td colspan = "6" >
-                                {for $counter = 1 to $paging}
-                                    <button class="pagination-button" id="{$counter}" type="button">{$counter}</button>
-                                {/for}
-                            </td>
-                            </tfoot>  
-                            </tbody> 
-                        </table>
-                        <input class="button-unlock" type="submit" value = "Ok">
-                    </form>
-                </div>   
+                <table id="management-table" class="users-table">
+                    <thead>
+                        <tr>
+                            <td class="table-tittle" colspan="9">Locked Users</td>
+                        </tr>
+                    </thead>
+                    <tr>  
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Register date</th>
+                        <th>Attempts</th> 
+                        <th>Status</th>
+                        <th>Lock</th>
+                        <th>Unlock</th>
+
+                    </tr>
+                    <tbody id="table-users-body"></tbody>
+                    <tfoot class="hide-if-no-paging" >
+                    <td colspan = "6" >
+                        {for $counter = 1 to $paging}
+                            <button class="pagination-button" id="{$counter}" type="button">{$counter}</button>
+                        {/for}
+                    </td>
+                    </tfoot>  
+                    </tbody> 
+                </table>
+                <input id = "button-confirme" class="button-unlock" type="button" value = "Ok">
+
+            </div>   
         </div>
         <footer>
             <div id="footer-usermanagement" class="footer">
@@ -97,7 +97,9 @@
 <script>
     $(document).ready(function () {
 
-        load_data();
+        var page = 1;
+
+        load_data(page);
         function load_data(page) {
             $.ajax({
                 url: "user_management_pagination.php",
@@ -110,6 +112,61 @@
                 success: function (json) {
                     var table = document.getElementById("table-users-body");
                     console.log(json.length);
+                    
+                    for (var i = 0; i < json.length; i++) {
+                        var row = table.insertRow(i);
+
+                        var cellFirstname = row.insertCell(0);
+                        var cellLastname = row.insertCell(1);
+                        var cellUsername = row.insertCell(2);
+                        var cellEmail = row.insertCell(3);
+                        var cellRegistrationDate = row.insertCell(4);
+                        var cellAttempts = row.insertCell(5);
+                        var cellStatus = row.insertCell(6);
+                        var cellLocked = row.insertCell(7);
+                        var cellUnlocked = row.insertCell(8);
+
+                        cellFirstname.innerHTML = json[i].firstname;
+                        cellLastname.innerHTML = json[i].lastname;
+                        cellUsername.innerHTML = json[i].username;
+                        cellEmail.innerHTML = json[i].email;
+                        cellRegistrationDate.innerHTML = json[i].registerdate;
+                        cellAttempts.innerHTML = json[i].numberofattemps;
+                        cellStatus.innerHTML = json[i].status;
+
+                        if (json[i].status === "LOCKED") {
+                            cellLocked.innerHTML = "<input type='checkbox' name='chk_lock[]' value = '" + json[i].username + "' disabled>";
+                            cellUnlocked.innerHTML = "<input type='checkbox' name='chk_unlock[]'  value = '" + json[i].username + "'>";
+                        } else {
+                            cellLocked.innerHTML = "<input type='checkbox' name='chk_lock[]'  value = '" + json[i].username + "'>";
+                            cellUnlocked.innerHTML = "<input type='checkbox' name='chk_unlock[]'  value = '" + json[i].username + "' disabled>";
+                        }
+
+                    }
+
+
+                }
+            });
+        }
+
+
+        function send_data(page, json_ckh_lock, json_ckh_unlock) {
+              console.log("json_chk_lock: "+json_ckh_lock);
+            console.log("json_chk_unlock: "+json_ckh_unlock);
+            $.ajax({
+                url: "user_management_pagination.php",
+                method: "POST",
+                dataType: 'json',
+                data: {
+                    "page": page,
+                    "chk_lock": json_ckh_lock,
+                    "chk_unlock": json_ckh_unlock
+                },
+
+                success: function (json) {
+                    var table = document.getElementById("table-users-body");
+                    console.log("Checkboxovi:" +json.length);
+              
                     for (var i = 0; i < json.length; i++) {
                         var row = table.insertRow(i);
 
@@ -147,9 +204,35 @@
         }
         //get the id of clicked link
         $('.pagination-button').on('click', function () {
-            load_data(this.id);
+            page = this.id;
+            console.log("Page: "+page);
+            load_data(page);
             $('#table-users-body').empty();
 
         });
+
+        $('#button-confirme').on('click', function(){
+           
+  
+            var chk_lock_data = $("input[name='chk_lock[]']:checked").map(function () {
+                return $(this).val();
+            }).get();
+            
+           
+            
+            var chk_unlock_data =  $("input[name='chk_unlock[]']:checked").map(function () {
+                return $(this).val();
+            }).get();
+            
+           
+         
+            var json_ckh_lock = JSON.stringify(chk_lock_data);
+            var json_ckh_unlock = JSON.stringify(chk_unlock_data);
+         
+            send_data(page, json_ckh_lock, json_ckh_unlock);
+            $('#table-users-body').empty();
+        });
+
+
     });
 </script>

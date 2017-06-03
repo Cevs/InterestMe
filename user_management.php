@@ -12,7 +12,7 @@
         $db = new DataBase();
         $db->openConnectionDB();
 
-        if (isset($_POST['chk_unlock']) && !empty($_POST['chk_unlock'])) {
+        /*if (isset($_POST['chk_unlock']) && !empty($_POST['chk_unlock'])) {
             foreach ($_POST['chk_unlock'] as $i => $value) {
                 $username = $value;
                 $sqlUpdate = "UPDATE korisnici SET zakljucan_pristup = 0, neuspjesne_prijave = 0 WHERE korisnicko_ime  = '" . $username . "'";
@@ -26,7 +26,7 @@
                 $sqlUpdate = "UPDATE korisnici SET zakljucan_pristup = 1 WHERE korisnicko_ime  = '" . $username . "'";
                 $db->updateDB($sqlUpdate);
             }
-        }
+        }*/
 
         $pg = new Paging();
         $resultsPerPage = $pg->getResultsPerPage();
