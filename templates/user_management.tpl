@@ -13,38 +13,40 @@
     </head>
 
     <body>
-        <div id="cont">
-            <header>
-                <div id="header-ccontainer">
-                    <div class="nav-title-container" >
-                        <button id="expand-collpase-button">
-                            <img id="expand-collapse-picture"  src="images/collapse.png" alt="button for collapsing or expending navigation view" >
-                        </button>
 
-                        <h1 class="nav-title">InterestMe</h1>
-                    </div>
+        <header>
+            <div id="header-ccontainer">
+                <div class="nav-title-container" >
+                    <button id="expand-collpase-button">
+                        <img id="expand-collapse-picture"  src="images/collapse.png" alt="button for collapsing or expending navigation view" >
+                    </button>
 
-                    <nav>
-                        <div class="nav-container">
-                            <div class="nav-links">
-                                <ul id="nav-list-items">
-                                    <li class="nav-list-item"><a  href="index.php" class="inactive" >Home</a></li>
-                                    <li class="nav-list-item"><a  href="index.php" class="inactive" >Section1</a></li>
-                                    <li class="nav-list-item"><a  href="index.php" class="inactive" >Section2</a></li>
-                                    <li class="nav-list-item"><a  href="index.php" class="inactive" >Section3</a></li>
-                                    <li class="nav-list-item"><a href="unlock_users.php" class="active">Unlock</a></li>
-
-                                </ul>
-                            </div>
-                            <div class="nav-button-wrapper">
-                                <button type="button" class="button-login" onclick="window.parent.location.href = 'login.php'">Log In</button>
-                                <button type="button" class="button-singin" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
-                            </div>
-                        </div>
-                    </nav>
+                    <h1 class="nav-title">InterestMe</h1>
                 </div>
-            </header>
 
+                <nav>
+                    <div class="nav-container">
+                        <div class="nav-links">
+                            <ul id="nav-list-items">
+                                <li class="nav-list-item"><a  href="index.php" class="inactive" >Home</a></li>
+                                <li class="nav-list-item"><a  href="index.php" class="inactive" >Section1</a></li>
+                                <li class="nav-list-item"><a  href="index.php" class="inactive" >Section2</a></li>
+                                <li class="nav-list-item"><a  href="index.php" class="inactive" >Section3</a></li>
+                                <li class="nav-list-item"><a href="unlock_users.php" class="active">Unlock</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="nav-button-wrapper">
+                            <button type="button" class="button-login" onclick="window.parent.location.href = 'login.php'">Log In</button>
+                            <button type="button" class="button-singin" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+
+        <div id="cont">
             <section>
                 <div class="table-container">
                     <form  method="post" action="user_managment.php" >
@@ -64,7 +66,7 @@
                                 <th>Status</th>
                                 <th>Lock</th>
                                 <th>Unlock</th>
-                          
+
                             </tr>
                             <tbody id="table-users-body"></tbody>
                             <tfoot class="hide-if-no-paging" >
@@ -92,7 +94,7 @@
 
 <script>
     $(document).ready(function () {
-       
+
         load_data();
         function load_data(page) {
             $.ajax({
@@ -108,7 +110,7 @@
                     console.log(json.length);
                     for (var i = 0; i < json.length; i++) {
                         var row = table.insertRow(i);
-                        
+
                         var cellFirstname = row.insertCell(0);
                         var cellLastname = row.insertCell(1);
                         var cellUsername = row.insertCell(2);
@@ -126,16 +128,15 @@
                         cellRegistrationDate.innerHTML = json[i].registerdate;
                         cellAttempts.innerHTML = json[i].numberofattemps;
                         cellStatus.innerHTML = json[i].status;
-                        
-                        if(json[i].status === "LOCKED"){
-                            cellLocked.innerHTML = "<input type='checkbox' name='chk_lock[]' value = '"+json[i].username+"' disabled>";
-                            cellUnlocked.innerHTML = "<input type='checkbox' name='chk_unlock[]'  value = '"+json[i].username+"'>";
+
+                        if (json[i].status === "LOCKED") {
+                            cellLocked.innerHTML = "<input type='checkbox' name='chk_lock[]' value = '" + json[i].username + "' disabled>";
+                            cellUnlocked.innerHTML = "<input type='checkbox' name='chk_unlock[]'  value = '" + json[i].username + "'>";
+                        } else {
+                            cellLocked.innerHTML = "<input type='checkbox' name='chk_lock[]'  value = '" + json[i].username + "'>";
+                            cellUnlocked.innerHTML = "<input type='checkbox' name='chk_unlock[]'  value = '" + json[i].username + "' disabled>";
                         }
-                        else{
-                            cellLocked.innerHTML = "<input type='checkbox' name='chk_lock[]'  value = '"+json[i].username+"'>";
-                            cellUnlocked.innerHTML = "<input type='checkbox' name='chk_unlock[]'  value = '"+json[i].username+"' disabled>";
-                        }
-           
+
                     }
 
 
@@ -146,7 +147,7 @@
         $('.pagination-button').on('click', function () {
             load_data(this.id);
             $('#table-users-body').empty();
-  
+
         });
     });
 </script>

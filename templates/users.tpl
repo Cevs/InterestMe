@@ -13,40 +13,38 @@
     </head>
 
     <body id="user-print">
-        <div id="cont">
-            <header>
-                <div id="header-ccontainer">
-                    <div class="nav-title-container" >
-                        <button id="expand-collpase-button">
-                            <img id="expand-collapse-picture"  src="images/collapse.png"  >
-                        </button>
+        <header>
+            <div id="header-ccontainer">
+                <div class="nav-title-container" >
+                    <button id="expand-collpase-button">
+                        <img id="expand-collapse-picture"  src="images/collapse.png"  >
+                    </button>
 
-                        <h1 class="nav-title">InterestMe</h1>
-                    </div>
-
-                    <nav>
-                        <div class="nav-container">
-                            <div class="nav-links">
-                                <ul id="nav-list-items">
-                                    <li class="nav-list-item"><a  href="../index.php" class="inactive" >Home</a></li>
-                                    <li class="nav-list-item"><a  href="../index.php" class="inactive" >Section1</a></li>
-                                    <li class="nav-list-item"><a  href="../index.php" class="inactive" >Section2</a></li>
-                                    <li class="nav-list-item"><a  href="../index.php" class="inactive" >Section3</a></li>
-                                    <li class="nav-list-item"><a href="korisnici.php" class="active" >Users</a></li>
-
-
-                                </ul>
-                            </div>
-                            <div class="nav-button-wrapper">
-                                <button type="button" class="button-login" onclick="window.parent.location.href = '../login.php'">Log In</button>
-                                <button type="button" class="button-singin" onclick="window.parent.location.href = '../register.php'" >Sing In</button>
-                            </div>
-                        </div>
-
-                    </nav>
+                    <h1 class="nav-title">InterestMe</h1>
                 </div>
-            </header>
+                <nav>
+                    <div class="nav-container">
+                        <div class="nav-links">
+                            <ul id="nav-list-items">
+                                <li class="nav-list-item"><a  href="../index.php" class="inactive" >Home</a></li>
+                                <li class="nav-list-item"><a  href="../index.php" class="inactive" >Section1</a></li>
+                                <li class="nav-list-item"><a  href="../index.php" class="inactive" >Section2</a></li>
+                                <li class="nav-list-item"><a  href="../index.php" class="inactive" >Section3</a></li>
+                                <li class="nav-list-item"><a href="korisnici.php" class="active" >Users</a></li>
 
+
+                            </ul>
+                        </div>
+                        <div class="nav-button-wrapper">
+                            <button type="button" class="button-login" onclick="window.parent.location.href = '../login.php'">Log In</button>
+                            <button type="button" class="button-singin" onclick="window.parent.location.href = '../register.php'" >Sing In</button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <div id="cont">
             <section>
                 <div class="table-container" >
                     <table id="table-users" class="users-table">
@@ -60,29 +58,26 @@
                                 <th>User type</th>
                             </tr>
                         </thead>
-                        
+
                         <tbody id="table-users-body"> </tbody>
                         <tfoot class="hide-if-no-paging" >
                         <td colspan = "6" >
-                        {for $counter = 1 to $paging}
-                            <button class="pagination-button" id="{$counter}">{$counter}</button>
-                        {/for}
+                            {for $counter = 1 to $paging}
+                                <button class="pagination-button" id="{$counter}">{$counter}</button>
+                            {/for}
                         </td>
                         </tfoot>
                     </table>
                 </div>
             </section>
-
         </div>
+
         <footer>
             <div id="footer">
                 <a class="about-author" href="#">&copy; 2017. A. Martinčević</a>
             </div> 
         </footer>
     </body>
-
-
-
 </html>
 
 <script type="text/javascript">
@@ -92,7 +87,7 @@
             $.ajax({
                 url: "../private/users_pagination.php",
                 method: "POST",
-                dataType:'json',
+                dataType: 'json',
                 data: {
                     "page": page
                 },
@@ -100,16 +95,16 @@
                 success: function (json) {
                     var table = document.getElementById("table-users-body");
                     console.log(json.length);
-                    for(var i = 0; i<json.length; i++){
+                    for (var i = 0; i < json.length; i++) {
                         var row = table.insertRow(i);
-                        
+
                         var cellUsername = row.insertCell(0);
                         var cellLastname = row.insertCell(1);
                         var cellFirstname = row.insertCell(2);
                         var cellEmail = row.insertCell(3);
                         var cellPassword = row.insertCell(4);
                         var cellUsertype = row.insertCell(5);
-                        
+
                         cellUsername.innerHTML = json[i].username;
                         cellLastname.innerHTML = json[i].lastname;
                         cellFirstname.innerHTML = json[i].firstname;
