@@ -1,18 +1,10 @@
 //Run only when page Document Object Model(DOM) is ready for js to execute
 $(document).ready(function () {
-
+    
     $("#expand-collpase-button").click(hideShowNavigationMenu);
     $(window).resize(checkWindowSize);
 
-    //change class to all child elements of parent .nav-list-item
-    //REMOVED: $(".nav-list-item").on('click','a',changeState);
-    //  -> Its causing problems with calling php scripts
-
-    /*REMOVED
-     * Remove all active class from navigation and replace it with inactive
-     * Add active class to current selected navigation item
-     * @return false
-     */
+   
     function changeState() {
         $(".nav-list-item>a").removeClass("active");
         $(".nav-list-item>a").addClass("inactive");
@@ -30,7 +22,7 @@ $(document).ready(function () {
      * 
      */
     function hideShowNavigationMenu() {
-       
+
         if ($("#nav-list-items").is(":visible")) {
             $("#expand-collapse-picture").attr('src', "images/expand.png");
             $("#nav-list-items").hide();
@@ -58,7 +50,7 @@ $(document).ready(function () {
 
 
     var usernameExists = false;
-    
+
     $("#username").focusout(function () {
         var username = $("#username").val();
 
@@ -92,9 +84,9 @@ $(document).ready(function () {
             setWarningUsername();
         }
     });
-    
+
     var emailExists = false;
-     $("#email").focusout(function () {
+    $("#email").focusout(function () {
         var email = $("#email").val();
 
         if (email !== '') {
@@ -129,7 +121,6 @@ $(document).ready(function () {
     });
 
 
-
     $("#first-name").focusout(function () {
         if (!(verificationFirstName()))
             setWarningFirstName();
@@ -150,11 +141,12 @@ $(document).ready(function () {
         if (!verificationEmail()) {
             setWarningEmail();
         } else {
-            if(!emailExists){
+            if (!emailExists) {
                 removeWarningEmail();
-            }         
+            }
         }
     });
+
 
     $("#password").focusout(function () {
         if (!verificationPassword()) {
@@ -226,16 +218,14 @@ $(document).ready(function () {
             var warning = "";
             if ($("#email").val() === "") {
                 warning = "empty field";
-            }
-            else if(emailExists){
+            } else if (emailExists) {
                 warning = "Email already in use";
-            }
-            else{
+            } else {
                 warning = "Incorrect email";
             }
-            
-    
-            console.log("warning: "+warning);
+
+
+            console.log("warning: " + warning);
             $("#email").addClass("input-alert");
             $("#email").after('<p id ="text-email" class="alert-text">' + warning + '</p>');
         }
@@ -367,8 +357,8 @@ $(document).ready(function () {
             return false;
         }
     }
-    
-   
+
+
 
 
     $("#form-registration").submit(function (e) {

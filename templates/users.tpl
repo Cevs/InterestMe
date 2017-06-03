@@ -33,7 +33,7 @@
                                     <li class="nav-list-item"><a  href="../index.php" class="inactive" >Section2</a></li>
                                     <li class="nav-list-item"><a  href="../index.php" class="inactive" >Section3</a></li>
                                     <li class="nav-list-item"><a href="korisnici.php" class="active" >Users</a></li>
-                                  
+
 
                                 </ul>
                             </div>
@@ -48,27 +48,27 @@
             </header>
 
             <section>
-                <div>
-                    <table class="users-table">
-                        <tr>
-                            <th>Username</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>User type</th>
-                        </tr>
-                        
-                        {foreach from=$user_array  item = user}
+                <div class="table-container" >
+                    <table id="table-users" class="users-table">
+                        <thead>
                             <tr>
-                                <td>{$user.username}</td>
-                                <td>{$user.lastname}</td>
-                                <td>{$user.firstname}</td>
-                                <td>{$user.email}</td>
-                                <td>{$user.password}</td>
-                                <td>{$user.type}</td>
+                                <th>Username</th>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>User type</th>
                             </tr>
-                        {/foreach}   
+                        </thead>
+                        
+                        <tbody id="table-users-body"> </tbody>
+                        <tfoot class="hide-if-no-paging" >
+                        <td colspan = "6" >
+                        {for $counter = 1 to $paging}
+                            <button class="pagination-button" id="{$counter}">{$counter}</button>
+                        {/for}
+                        </td>
+                        </tfoot>
                     </table>
                 </div>
             </section>
@@ -81,4 +81,51 @@
         </footer>
     </body>
 
+
+
 </html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        load_data();
+        function load_data(page) {
+            $.ajax({
+                url: "../private/users_pagination.php",
+                method: "POST",
+                dataType:'json',
+                data: {
+                    "page": page
+                },
+
+                success: function (json) {
+                    var table = document.getElementById("table-users-body");
+                    console.log(json.length);
+                    for(var i = 0; i<json.length; i++){
+                        var row = table.insertRow(i);
+                        
+                        var cellUsername = row.insertCell(0);
+                        var cellLastname = row.insertCell(1);
+                        var cellFirstname = row.insertCell(2);
+                        var cellEmail = row.insertCell(3);
+                        var cellPassword = row.insertCell(4);
+                        var cellUsertype = row.insertCell(5);
+                        
+                        cellUsername.innerHTML = json[i].username;
+                        cellLastname.innerHTML = json[i].lastname;
+                        cellFirstname.innerHTML = json[i].firstname;
+                        cellEmail.innerHTML = json[i].email;
+                        cellPassword.innerHTML = json[i].password;
+                        cellUsertype.innerHTML = json[i].type;
+                    }
+
+
+                }
+            });
+        }
+        //get the id of clicked link
+        $('.pagination-button').on('click', function () {
+            load_data(this.id);
+            $('#table-users-body').empty();
+        });
+    });
+</script>

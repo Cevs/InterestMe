@@ -318,9 +318,6 @@ p.agree {
     font-size: 14px;
 }
 
-#registration-container{ 
-    width:100%;
-}
 
 .form-container{
     width:100%;
@@ -601,7 +598,7 @@ table{
 
 
 /*Small*/
-@media screen and (max-width:480px){
+@media screen and (max-width:400px){
     body{
         font-size:14px;
     }
@@ -674,7 +671,7 @@ table{
 
     #button-submit-login{
         margin-top: 15px;
-        width:200px;
+        width:100%;
         font-size: 16px;
     }
 
@@ -694,13 +691,11 @@ table{
 
     .registration {
         margin:0 auto;
-        width: 400px;
+        width: 100%;
         height: 100%;
-        padding-bottom: 20px;
-        padding-top:20px;
-        padding-left:50px;
-        padding-right:50px;
-
+    }
+    .registration label{
+        font-size:14px;
     }
     
     .time-settings {
@@ -768,12 +763,21 @@ table{
         background-color: #fff;
 
     }
+    
+    .registration{
+        margin: 0 auto;
+        width:100%;
+        height: 100%;
+    }
+     .registration label{
+        font-size:15px;
+    }
 
 
 
     #button-submit-login{
         margin-top: 15px;
-        width:300px;
+        width:100%;
         font-size: 16px;
     }
 
@@ -883,7 +887,7 @@ table{
 
     #button-submit-login{
         margin-top: 15px;
-        width:400px;
+        width:100%;
         font-size: 16px;
     }
 
@@ -900,6 +904,10 @@ table{
 
 
     .login label {
+        font-size:16px;
+    }
+    
+    .registration label {
         font-size:16px;
     }
 
@@ -992,15 +1000,19 @@ table{
 
 
 }
-@media screen and (min-height: 950px) {
+@media screen and (min-height: 550px) {
+   
 
-
+    .table-container{
+        position: relative;
+        top:250px;
+    }
     #registration-container{ 
         position:relative;
-        top:50px;
+        top:90px;
     }
     #footer{
-        margin-top: 50px;
+        margin-top: 230px;
     }
 
     .notification{
@@ -1010,15 +1022,19 @@ table{
 
 }
 
-@media screen and (min-height: 550px) and (max-height: 950px) {
+@media screen and (min-height: 300px) and (max-height: 550px) {
 
+    .table-container{
+        position: relative;
+        top:170px;
+    }
     #registration-container{ 
         position:relative;
         top:80px;
     }
 
     #footer{
-        margin-top: 80px;
+        margin-top: 230px;
     }
 
     .notification{
@@ -1027,15 +1043,20 @@ table{
     }
 }
 
-@media screen and (max-height: 550px) {
+@media screen and (max-height: 300px) {
 
+    .table-container{
+        position: relative;
+        top:300px;
+    }
+    
     #registration-container{ 
         position:relative;
-        top:150px;
+        top:250px;
     }
 
     #footer{
-        margin-top: 220px;
+        margin-top: 500px;
     }
 
     .notification{

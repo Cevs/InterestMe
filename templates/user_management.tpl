@@ -41,16 +41,14 @@
                                 <button type="button" class="button-singin" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
                             </div>
                         </div>
-
                     </nav>
                 </div>
             </header>
 
             <section>
-                <div>
+                <div class="table-container">
                     <form  method="post" action="user_managment.php" >
                         <table class="users-table">
-
                             <thead>
                                 <tr>
                                     <td class="table-tittle" colspan="9">Locked Users</td>
@@ -62,28 +60,24 @@
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Register date</th>
-                                <th>Attempts</th>  
+                                <th>Attempts</th> 
                                 <th>Status</th>
-                                <th>Unlock</th>
                                 <th>Lock</th>
+                                <th>Unlock</th>
+                          
                             </tr>
-                            {foreach from=$lockedusers item = user}
-                                <tr>
-                                    <td>{$user.firstname}</td>
-                                    <td>{$user.lastname}</td>
-                                    <td>{$user.username}</td>
-                                    <td>{$user.email}</td>
-                                    <td>{$user.registerdate}</td>
-                                    <td>{$user.numberofattemps}</td>
-                                    <td>{$user.status}</td>
-                                    <td><input type="checkbox" name="chk_unlock[]" value="{$user.username}" {if $user.status eq 'UNLOCKED'}disabled{/if}></td>
-                                    <td><input type="checkbox" name="chk_lock[]" value="{$user.username}" {if $user.status eq 'LOCKED'}disabled{/if}></td>
-                                </tr>
-                            {/foreach}   
+                            <tbody id="table-users-body"></tbody>
+                            <tfoot class="hide-if-no-paging" >
+                            <td colspan = "6" >
+                                {for $counter = 1 to $paging}
+                                    <button class="pagination-button" id="{$counter}" type="button">{$counter}</button>
+                                {/for}
+                            </td>
+                            </tfoot>  
+                            </tbody> 
                         </table>
                         <input class="button-unlock" type="submit" value = "Ok">
                     </form>
-
                 </div>
             </section>       
         </div>
@@ -95,3 +89,64 @@
     </body>
 
 </html>
+
+<script>
+    $(document).ready(function () {
+       
+        load_data();
+        function load_data(page) {
+            $.ajax({
+                url: "user_management_pagination.php",
+                method: "POST",
+                dataType: 'json',
+                data: {
+                    "page": page
+                },
+
+                success: function (json) {
+                    var table = document.getElementById("table-users-body");
+                    console.log(json.length);
+                    for (var i = 0; i < json.length; i++) {
+                        var row = table.insertRow(i);
+                        
+                        var cellFirstname = row.insertCell(0);
+                        var cellLastname = row.insertCell(1);
+                        var cellUsername = row.insertCell(2);
+                        var cellEmail = row.insertCell(3);
+                        var cellRegistrationDate = row.insertCell(4);
+                        var cellAttempts = row.insertCell(5);
+                        var cellStatus = row.insertCell(6);
+                        var cellLocked = row.insertCell(7);
+                        var cellUnlocked = row.insertCell(8);
+
+                        cellFirstname.innerHTML = json[i].firstname;
+                        cellLastname.innerHTML = json[i].lastname;
+                        cellUsername.innerHTML = json[i].username;
+                        cellEmail.innerHTML = json[i].email;
+                        cellRegistrationDate.innerHTML = json[i].registerdate;
+                        cellAttempts.innerHTML = json[i].numberofattemps;
+                        cellStatus.innerHTML = json[i].status;
+                        
+                        if(json[i].status === "LOCKED"){
+                            cellLocked.innerHTML = "<input type='checkbox' name='chk_lock[]' value = '"+json[i].username+"' disabled>";
+                            cellUnlocked.innerHTML = "<input type='checkbox' name='chk_unlock[]'  value = '"+json[i].username+"'>";
+                        }
+                        else{
+                            cellLocked.innerHTML = "<input type='checkbox' name='chk_lock[]'  value = '"+json[i].username+"'>";
+                            cellUnlocked.innerHTML = "<input type='checkbox' name='chk_unlock[]'  value = '"+json[i].username+"' disabled>";
+                        }
+           
+                    }
+
+
+                }
+            });
+        }
+        //get the id of clicked link
+        $('.pagination-button').on('click', function () {
+            load_data(this.id);
+            $('#table-users-body').empty();
+  
+        });
+    });
+</script>
