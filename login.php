@@ -1,4 +1,5 @@
 <?php
+
     require ('libraries/Smarty/libs/Smarty.class.php');
     include ('database.class.php');
     include ('session.class.php');
@@ -10,6 +11,7 @@
     if (!empty($user)) {
         Session::deleteSession();
     }
+
 
     $smarty = new Smarty();
 

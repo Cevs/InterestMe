@@ -23,8 +23,9 @@
 
                     <h1 class="nav-title">InterestMe</h1>
                     <div class="nav-button-wrapper">
-                        <button type="button" class="button-login" onclick="window.parent.location.href = 'login.php'">Log In</button>
-                        <button type="button" class="button-singin" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
+                        <button type="button" class="button-login" onclick="window.parent.location.href = 'login.php'" style ="display:{$loginDisplay}">Log In</button>
+                        <button type="button" class="button-signin" onclick="window.parent.location.href = 'register.php'" style ="display:{$signinDisplay}">Sign In</button>
+                        <button type="button" class="button-logout" onclick="window.parent.location.href = 'login.php'" style="display:{$logoutDisplay}">Log out</button>
                     </div>
 
                 </div>
@@ -33,15 +34,14 @@
                         <div class="nav-links">
                             <ul id="nav-list-items">
                                 <li class="nav-list-item"><a href="index.php" class="inactive" >Home</a></li>
-                                <li class="nav-list-item"><a href="index.php" class="inactive" >Section1</a></li>
-                                <li class="nav-list-item"><a href="index.php" class="inactive" >Section2</a></li>
-                                <li class="nav-list-item"><a href="index.php" class="inactive" >Section3</a></li>
-                                <li class="nav-list-item"><a href="login.php" class="active" >Login</a></li>
-
+                                <li class="nav-list-item" style="display:{$usersForm}"><a href="time.php" class="inactive" >System Time</a></li>
+                                <li class="nav-list-item" style="display:{$timeConfigurationForm}"><a href="user_management.php" class="active">User Management</a></li>
+                                <li class="nav-list-item" style="display:{$foiForm}"><a href="foi.php" class="inactive">Foi</a></li> >
                             </ul>
                             <div class="nav-button-wrapper">
-                                <button type="button" class="button-login-mobile" onclick="window.parent.location.href = 'login.php'">Log In</button>
-                                <button type="button" class="button-singin-mobile" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
+                                <button type="button" class="button-login-mobile" onclick="window.parent.location.href = 'login.php'" style ="display:{$loginDisplay}">Log In</button>
+                                <button type="button" class="button-signin-mobile" onclick="window.parent.location.href = 'register.php'" style ="display:{$signinDisplay}">Sign In</button>
+                                <button type="button" class="button-logout-mobile" onclick="window.parent.location.href = 'login.php'" style="display:{$logoutDisplay}">Log out</button>
                             </div>
                         </div>
                     </div>
@@ -111,8 +111,8 @@
 
                 success: function (json) {
                     var table = document.getElementById("table-users-body");
-                    console.log(json.length);
-                    
+                    console.log("json:" + json.length);
+
                     for (var i = 0; i < json.length; i++) {
                         var row = table.insertRow(i);
 
@@ -151,8 +151,8 @@
 
 
         function send_data(page, json_ckh_lock, json_ckh_unlock) {
-              console.log("json_chk_lock: "+json_ckh_lock);
-            console.log("json_chk_unlock: "+json_ckh_unlock);
+            console.log("json_chk_lock: " + json_ckh_lock);
+            console.log("json_chk_unlock: " + json_ckh_unlock);
             $.ajax({
                 url: "user_management_pagination.php",
                 method: "POST",
@@ -165,8 +165,8 @@
 
                 success: function (json) {
                     var table = document.getElementById("table-users-body");
-                    console.log("Checkboxovi:" +json.length);
-              
+                    console.log("Checkboxovi:" + json.length);
+
                     for (var i = 0; i < json.length; i++) {
                         var row = table.insertRow(i);
 
@@ -205,30 +205,30 @@
         //get the id of clicked link
         $('.pagination-button').on('click', function () {
             page = this.id;
-            console.log("Page: "+page);
+            console.log("Page: " + page);
             load_data(page);
             $('#table-users-body').empty();
 
         });
 
-        $('#button-confirme').on('click', function(){
-           
-  
+        $('#button-confirme').on('click', function () {
+
+
             var chk_lock_data = $("input[name='chk_lock[]']:checked").map(function () {
                 return $(this).val();
             }).get();
-            
-           
-            
-            var chk_unlock_data =  $("input[name='chk_unlock[]']:checked").map(function () {
+
+
+
+            var chk_unlock_data = $("input[name='chk_unlock[]']:checked").map(function () {
                 return $(this).val();
             }).get();
-            
-           
-         
+
+
+
             var json_ckh_lock = JSON.stringify(chk_lock_data);
             var json_ckh_unlock = JSON.stringify(chk_unlock_data);
-         
+
             send_data(page, json_ckh_lock, json_ckh_unlock);
             $('#table-users-body').empty();
         });

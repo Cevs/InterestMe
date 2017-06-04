@@ -5,6 +5,25 @@ html,body{
     margin:0;
 
 }
+
+.search-container{
+  width: 490px;
+  display: block;
+  margin: 0 auto;
+}
+
+
+input#search-bar{
+    margin: 0 auto;
+    width: 100%;
+    height: 45px;
+    padding: 0 20px;
+    font-size: 1rem;
+    border: 1px solid #D0CFCE;
+    outline: none;
+   
+}
+
 body{
     /*background-image: url(../images/image.jpg);
     background-size: 100%;*/
@@ -119,7 +138,8 @@ nav a:hover {
     color: #fff;
     background: #009900;
     border-radius: 3px;
-    display:none;
+
+
 }
 
 .button-login-mobile:hover{
@@ -128,29 +148,53 @@ nav a:hover {
 }
 
 
-.button-singin{
+.button-signin{
     border: 1px solid #E9A72F;
     color: #fff;
     background: #E59400;
     border-radius: 3px;
 }
 
-.button-singin:hover{
+.button-signin:hover{
     background: #fff;
     color:#E59400
 }
 
-.button-singin-mobile{
+.button-signin-mobile{
     border: 1px solid #E9A72F;
     color: #fff;
     background: #E59400;
     border-radius: 3px;
-    display:none;
+
 }
 
-.button-singin-mobile:hover{
+.button-signin-mobile:hover{
     background: #fff;
     color:#E59400
+}
+
+.button-logout{
+    border: 1px solid #B20000;
+    color: #fff;
+    background: #A00000;
+    border-radius: 3px;
+}
+
+.button-logout:hover{
+    background: #fff;
+    color:#A00000
+}
+
+.button-logout-mobile{
+    border: 1px solid #B20000;
+    color: #fff;
+    background: #A00000;
+    border-radius: 3px;
+}
+
+.button-logout-mobile:hover{
+    background: #fff;
+    color:#A00000
 }
 
 
@@ -168,11 +212,11 @@ nav a:hover {
     border: none;
     outline:none;
     outline-style: none;
-    
+
 }
 
 button::-moz-focus-inner {
-  border: 0;
+    border: 0;
 }
 
 #expand-collpase-button:hover{
@@ -641,19 +685,24 @@ table{
     }
 
     .button-login{
-        display:none;
+        display:none !important;
 
     }
-    .button-singin{
-        display:none;
+    .button-signin{
+        display:none !important;
 
     }
+
+    .button-logout{
+        display:none !important;
+    }
+
 
     #expand-collpase-button{
         position:relative;
         top:3px;
         width: 30px;
-    
+
     }
 
     .nav-title{
@@ -746,8 +795,8 @@ table{
         padding:5px;
         margin:0;width:50%;
     }
-    
-    .button-singin-mobile{
+
+    .button-signin-mobile{
         display:inline;
         border-radius: 0;
         font-size:14px;
@@ -755,7 +804,16 @@ table{
         padding:5px;
         width:50%;
     }
-    
+
+    .button-logout-mobile{
+        display:inline;
+        border-radius: 0;
+        font-size:14px;
+        margin:0;
+        padding:5px;
+        width:100%;
+    }
+
     .footer{
         height:30px;
         padding-top:15px;
@@ -771,10 +829,14 @@ table{
     }
 
     .button-login{
-        display:none;
+        display:none !important;
     }
-    .button-singin{
-        display:none;
+    .button-signin{
+        display:none !important;
+    }
+
+    .button-logout{
+        display:none !important;
     }
 
     .nav-title{
@@ -846,9 +908,9 @@ table{
     .time-settings label {
         font-size:15px;
     }
-    
+
     .button-login-mobile{
-        display:inline;
+        display:inline ;
         border-radius: 0;
         float:left;
         padding:5px;
@@ -856,14 +918,24 @@ table{
         margin:0;
         width:50%;
     }
-    
-    .button-singin-mobile{
-        display:inline;
+
+    .button-signin-mobile{
+        display:inline ;
         border-radius: 0;
         margin:0;
         padding:5px;
         font-size:15px;
         width:50%;
+    }
+
+    .button-logout-mobile{
+        display:inline ;
+        border-radius: 0;
+        float:left;
+        padding:5px;
+        font-size:15px;
+        margin:0;
+        width:100%;
     }
 }
 /*Medium*/
@@ -982,6 +1054,17 @@ table{
     .time-settings label {
         font-size:16px;
     }
+    .button-login-mobile{
+        display:none !important;
+    }
+
+    .button-signin-mobile{
+        display:none !important;
+    }
+
+    .button-logout-mobile{
+        display:none !important;
+    }
 }
 
 /*Largest*/
@@ -991,7 +1074,7 @@ table{
         font-size: 18px;
     }
     nav li {
-        width: 150px;
+        width: 200px;
         border-bottom: none;
         height: 50px;
         line-height: 50px;
@@ -1050,6 +1133,18 @@ table{
         height:400px;
 
     }
+
+    .button-login-mobile{
+        display:none !important;
+    }
+
+    .button-signin-mobile{
+        display:none !important;
+    }
+
+    .button-logout-mobile{
+        display:none !important;
+    }
 }
 @media screen and (min-height: 550px) {
 
@@ -1071,7 +1166,7 @@ table{
         position:relative;
         top:50px;
     }
-    
+
     #footer-registration{
         position:relative;
         top:300px;

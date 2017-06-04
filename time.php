@@ -47,9 +47,23 @@
 
         }
 
-
+        $logoutButtonDisplay = "inline";
+        $loginButtonDisplay = "none";
+        $signinButtonDisplay = "none";
+        
+        $foiForm = "inline";
+        $timeConfigurationForm = "inline";
+        $usersForm = "inline";
 
         $smarty = new Smarty();
+        $smarty->assign("usersForm",$usersForm);
+        $smarty->assign("timeConfigurationForm",$timeConfigurationForm);
+        $smarty->assign("loginDisplay",$loginButtonDisplay);
+        $smarty->assign("signinDisplay",$signinButtonDisplay);
+        $smarty->assign("logoutDisplay",$logoutButtonDisplay);
+        $smarty->assign("foiForm",$foiForm);
+
+       
         $smarty->assign("value",$value);
         $smarty->display("templates/time.tpl");
 

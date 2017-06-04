@@ -23,7 +23,7 @@
                     <h1 class="nav-title">InterestMe</h1>
                     <div class="nav-button-wrapper">
                         <button type="button" class="button-login" onclick="window.parent.location.href = 'login.php'">Log In</button>
-                        <button type="button" class="button-singin" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
+                        <button type="button" class="button-signin" onclick="window.parent.location.href = 'register.php'" >Sign In</button>
                     </div>
 
                 </div>
@@ -32,15 +32,12 @@
                         <div class="nav-links">
                             <ul id="nav-list-items">
                                 <li class="nav-list-item"><a href="index.php" class="inactive" >Home</a></li>
-                                <li class="nav-list-item"><a href="index.php" class="inactive" >Section1</a></li>
-                                <li class="nav-list-item"><a href="index.php" class="inactive" >Section2</a></li>
-                                <li class="nav-list-item"><a href="index.php" class="inactive" >Section3</a></li>
-                                <li class="nav-list-item"><a href="login.php" class="active" >Login</a></li>
+                                <li class="nav-list-item"><a href="identify.php" class="active" >Identify</a></li>
 
                             </ul>
                             <div class="nav-button-wrapper">
                                 <button type="button" class="button-login-mobile" onclick="window.parent.location.href = 'login.php'">Log In</button>
-                                <button type="button" class="button-singin-mobile" onclick="window.parent.location.href = 'register.php'" >Sing In</button>
+                                <button type="button" class="button-signin-mobile" onclick="window.parent.location.href = 'register.php'" >Sign In</button>
                             </div>
                         </div>
                     </div>
