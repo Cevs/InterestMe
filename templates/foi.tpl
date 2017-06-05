@@ -50,16 +50,24 @@
 
         <div id="cont">
             <form method="post" action="foi.php">
+                <label for="foi-id">ID </label>
+                <input id="foi-id" name = "foi-id" value="{$id}" readonly><br>
                 <label for="field-of-interest">Filed of interest*</label>
-                <input id="field-of-interest" type ="text" name="field-of-interest" placeholder="Name"><br>
+                <input id="field-of-interest" type ="text" name="field-of-interest" placeholder="Name" value="{$name}"><br>
                 <label for="foi-descripiton">Description*</label>
-                <textarea id="foi-description" name="foi-description" rows="4" cols="50" placeholder="Enter text here..."></textarea><br>
+                <textarea id="foi-description" name="foi-description" rows="4" cols="50" placeholder="Enter text here...">{$description}</textarea><br>
                 <label for="foi-theme">Theme</label>
-                <select id="foi-theme" name="foi-theme">
+                <select id="foi-theme" name="foi-theme">    
                     {foreach from=$themes key= key item = value}
-                             <option value = {$key}>{$value}</option>
+                        {if $style eq $value}
+                             <option value = {$key} selected>{$value}</option>
+                        {else}
+                             <option value="{$key}">{$value}</option>
+                        {/if}
+                       
                     {/foreach}
                 </select>
+                <input name ="action" style="display:none" value = "{$action}">
                 <input type ="submit" name ="submit" value ="Ok">
                 
             </form>

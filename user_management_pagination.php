@@ -13,6 +13,7 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
     $keyWords = -1;
     $sql = "";
     $arrayOrders = [];
+    
     $page = 1;
     //set current page
     if (isset($_POST['page'])) {
@@ -35,6 +36,8 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
         unlockUsers($unlockArray);
     }
     
+    //Save sorting orders of specific column to a array
+    //key = column name in database   value = ASC || DESC || none
     if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['registerdate']) && isset($_POST['attempts']) && isset($_POST['status'])) {
         $arrayOrders = array_push_associative($arrayOrders, "ime", $_POST['firstname']);
         $arrayOrders = array_push_associative($arrayOrders, "prezime", $_POST['lastname']);
