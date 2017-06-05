@@ -13,9 +13,6 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
     $keyWords = -1;
     $sql = "";
     $arrayOrders = [];
-
-
-    
     $page = 1;
     //set current page
     if (isset($_POST['page'])) {
@@ -24,12 +21,9 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
     //paging
     $pg = new Paging();
     $resultsPerPage = $pg->getResultsPerPage();
-    $numberOfPages = $pg->getNumberOfPages("korisnici") - 1;
+   
     //setting limit for the results on the displayed page
     $startingLimitNumber = ($page - 1) * $resultsPerPage;
-
-    
-
 
     if (isset($_POST['chk_lock'])) {
         $lockArray = (Array) json_decode($_POST['chk_lock'], true);

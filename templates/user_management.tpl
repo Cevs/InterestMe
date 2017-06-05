@@ -9,7 +9,7 @@
         <!-- Importing jquery files -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="js/jquery.js" type="text/javascript"></script> 
-        <!-- Importing jquery files -->
+     
     </head>
 
     <body>
@@ -121,7 +121,7 @@
                     </tbody> 
                 </table>
                 <input id = "button-confirme" class="button-unlock" type="button" value = "Ok">
-
+                <input  class="button-unlock" type="button" value="New user" onclick="window.parent.location.href = 'modify_user.php?action=insert'">
             </div>   
         </div>
         <footer>

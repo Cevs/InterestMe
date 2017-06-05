@@ -22,7 +22,7 @@ $timeConfigurationForm = "none";
 $userData = [];
 $userTypes = [];
 
-//administrator
+//Check for administrator
 if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
     $logoutButtonDisplay = "inline";
     $loginButtonDisplay = "none";
@@ -30,22 +30,30 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
     $foiForm = "inline";
     $timeConfigurationForm = "inline";
     $usersForm = "inline";
+    $action = "";
+    $userTypes = getAllTypes();
 
-
-    //form submited
-    if (isset($_GET['username']) && !empty($_GET['username'])&&isset($_GET['action'])&& $_GET['action']==='update') {
+    //Pressed update button on table
+    if (isset($_GET['username']) && !empty($_GET['username']) && isset($_GET['action'])&& $_GET['action']==='update') {
 
         $username = $_GET['username'];
-
         $userData = getUserData($username);
-        $userTypes = getAllTypes();
+        $action = "update";
     }
+    ///Pressed delete button on table
     else if (isset($_GET['username']) && !empty($_GET['username'])&&isset($_GET['action'])&& $_GET['action']==='delete'){
             $username = $_GET['username'];
             deleteUser($username);
     }
+    
+    //Pressed button for inserting new user
+     else if (isset($_GET['action'])&& $_GET['action']==='insert'){
+        $action = "insert";  
+     }
+           
+   
 
-    //Saving changes to user
+    //Form submitted
     if (isset($_POST['submit'])) {
         $id = $_POST['user-id'];
         $userTypeId = $_POST['user-tpye'];
@@ -64,26 +72,66 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
         $attempts = $_POST['user-attempts'];
         $status = $_POST['user-account-status'];
         $expirationTime = $_POST['user-code-time-expiration'];
-        update($id, $userTypeId, $username, $firstname, $lastName, $email, $telephoneNumber, $password, $registrationDate, $twoStepLogin, $city, $country, $points, $access
+        
+        //Form submitted for updating
+        if($_POST['action']==='update'){
+            updateUser($id, $userTypeId, $username, $firstname, $lastName, $email, $telephoneNumber, $password, $registrationDate, $twoStepLogin, $city, $country, $points, $access
                 , $attempts, $status, $expirationTime);
-    } else {
+        }
+          //Form submitted for inserting
+        if($_POST['action']==='insert'){
+            insertUser($userTypeId, $username, $firstname, $lastName, $email, $telephoneNumber, $password, $registrationDate, $twoStepLogin, $city, $country, $points, $access
+                , $attempts, $status, $expirationTime);
+        }
+        
+        
+    } 
+    //Set form data of selected user
+    else if (isset($_GET['action']) && $_GET['action'] === 'update'){
         $smarty = new Smarty();
 
         foreach ($userData as $name => $value) {
             $smarty->assign($name, $value);
         }
 
-        $smarty->assign("user_types", $userTypes);
-        $smarty->assign("usersForm", $usersForm);
-        $smarty->assign("timeConfigurationForm", $timeConfigurationForm);
-        $smarty->assign("loginDisplay", $loginButtonDisplay);
-        $smarty->assign("signinDisplay", $signinButtonDisplay);
-        $smarty->assign("logoutDisplay", $logoutButtonDisplay);
-        $smarty->display("templates/modify_user.tpl");
     }
+    //set form data to empty
+    else if(isset($_GET['action']) && $_GET['action'] === 'insert'){
+        
+        $smarty = new Smarty();
+        //set fields of form to empty
+        $smarty->assign("id","");
+        $smarty->assign("type","");
+        $smarty->assign("username","");
+        $smarty->assign("email","");
+        $smarty->assign("firstname","");
+        $smarty->assign("lastname","");
+        $smarty->assign("telephone_number","");
+        $smarty->assign("password","");
+        $smarty->assign("registration_date", getDateTime());
+        $smarty->assign("two_step_login","");
+        $smarty->assign("city","");
+        $smarty->assign("country","");
+        $smarty->assign("points","");
+        $smarty->assign("access","");
+        $smarty->assign("attempts","");
+        $smarty->assign("account_status","");
+        $smarty->assign("expiration_time","");
+      
+    }
+    
+    //Set common options and display form
+    $smarty->assign("action",$action);
+    $smarty->assign("user_types", $userTypes);
+    $smarty->assign("usersForm", $usersForm);
+    $smarty->assign("timeConfigurationForm", $timeConfigurationForm);
+    $smarty->assign("loginDisplay", $loginButtonDisplay);
+    $smarty->assign("signinDisplay", $signinButtonDisplay);
+    $smarty->assign("logoutDisplay", $logoutButtonDisplay);
+    $smarty->display("templates/modify_user.tpl");
 } else {
     $location = "index.php";
-    header("Loation: $location");
+    header("Location: $location");
 }
 
 function GetHash($password) {
@@ -93,12 +141,7 @@ function GetHash($password) {
     return($hash);
 }
 
-function ReturnDate() {
-    $virtual = new VirtualTime();
-    $virtualTime = $virtual->getVirtualTime();
-    $date = date("Y-m-d H:i:s", strtotime($virtualTime));
-    return ($date);
-}
+
 
 function getUserData($username) {
     $db = new DataBase();
@@ -189,12 +232,13 @@ function getAllTypes() {
 }
 
 //TO DO: treba dodati azutitanje atributa aktivacijski_kod, pocetak_ koristenja_ kolacica, kraj_koristenja_kolacica. vrijeme_isteka_aktivacijskog_koda
-function update($id, $userTypeId, $username, $firstname, $lastName, $email, $telephoneNumber, $password, $registrationDate, $twoStepLogin, $city, $country, $points, $access, $attempts, $status, $expirationTime) {
+function updateUser($id, $userTypeId, $username, $firstname, $lastName, $email, $telephoneNumber, $password, $registrationDate, $twoStepLogin, $city, $country, $points, $access, $attempts, $status, $expirationTime) {
     $db = new DataBase();
     $db->openConnectionDB();
     $hash = GetHash($password);
     $twoStepLogin = trim($twoStepLogin);
-    $db->insertDB($insert);
+
+     
     $sql = "UPDATE korisnici SET vrsta_korisnika_id = $userTypeId, korisnicko_ime ='" . $username . "', email = '" . $email . "', ime ='" . $firstname . "', prezime='" . $lastName . "', "
             . "lozinka = '" . $password . "', kriptirana_lozinka ='" . $hash . "', datum_registriranja = '" . $registrationDate . "', grad = '" . $city . "', drzava = '" . $country . "', "
             . "status_korisnickog_racuna = '" . $status . "', broj_telefona = '" . $telephoneNumber . "', dvorazinska_prijava = $twoStepLogin, ukupno_ostvareni_bodovi = $points, "
@@ -212,6 +256,32 @@ function deleteUser($username) {
     $sql = "DELETE FROM korisnici WHERE korisnicko_ime = '" . $username . "'";
     $db->updateDB($sql, $location);
     $db->closeConnectionDB();
+}
+
+
+function insertUser($userTypeId, $username, $firstname, $lastname, $email, $telephoneNumber, $password, $registrationDate, $twoStepLogin, $city, $country, $points, $access
+                , $attempts, $status, $expirationTime)
+{
+    
+    $hash = GetHash($password);
+    
+    $db = new DataBase();
+    $sql = "INSERT INTO korisnici (vrsta_korisnika_id, korisnicko_ime, email, ime, prezime, lozinka, kriptirana_lozinka, datum_registriranja, grad, drzava, status_korisnickog_racuna,"
+            . " broj_telefona, dvorazinska_prijava, ukupno_ostvareni_bodovi, zakljucan_pristup, neuspjesne_prijave, vrijeme_isteka_aktivacijskog_koda) VALUES ("
+            . " $userTypeId, '".$username."', '".$email."', '".$firstname."', '".$lastname."', '".$password."', '".$hash."', '".$registrationDate."', '".$city."', '"
+            .$country."', '".$status."', '".$telephoneNumber."', '".$twoStepLogin."', $points, $access, $attempts, '".$expirationTime."')";
+      
+    $db->insertDB($sql);
+    
+    $location = "user_management.php";
+    header("Location: $location");
+}
+
+function getDateTime(){
+    $virtual = new VirtualTime();
+    $virtualTime = $virtual->getVirtualTime();
+ 
+    return $virtualTime;
 }
 ?>
 

@@ -50,18 +50,16 @@
 
         <div id="cont">
             <form method="post" action="foi.php">
-                <label for="field-of-interest">Filed of interest</label>
-                <input id="field-of-interest" type ="text" name="field-of-interest" placeholder="Field of interest"><br>
-                <label for="foi-descripiton">Description</label>
-                <textarea id="foi-description" name="foi-description" rows="4" cols="50">
-                    Enter text here...
-                </textarea><br>
-                <label for="moderator">Moderator</label>
-                <select id="moderator" name="moderator">
-                    {foreach from=$moderators item = moderator}
-                        <option value="{$moderator.id}">{$moderator.firstname} {$moderator.lastname}</option>
+                <label for="field-of-interest">Filed of interest*</label>
+                <input id="field-of-interest" type ="text" name="field-of-interest" placeholder="Name"><br>
+                <label for="foi-descripiton">Description*</label>
+                <textarea id="foi-description" name="foi-description" rows="4" cols="50" placeholder="Enter text here..."></textarea><br>
+                <label for="foi-theme">Theme</label>
+                <select id="foi-theme" name="foi-theme">
+                    {foreach from=$themes key= key item = value}
+                             <option value = {$key}>{$value}</option>
                     {/foreach}
-                </select><br>
+                </select>
                 <input type ="submit" name ="submit" value ="Ok">
                 
             </form>

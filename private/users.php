@@ -9,7 +9,7 @@
     if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
        $pg = new Paging();
         $resultsPerPage = $pg->getResultsPerPage();
-        $numberOfPages = $pg->getNumberOfPages("korisnici");
+        $numberOfPages = $pg->getNumberOfPages("korisnici")-1;
         
         $logoutButtonDisplay = "inline";
         $loginButtonDisplay = "none";
