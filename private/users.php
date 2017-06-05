@@ -20,7 +20,7 @@
         $smarty->assign("signinDisplay",$signinButtonDisplay);
         $smarty->assign("logoutDisplay",$logoutButtonDisplay);
         $smarty->assign("paging",$numberOfPages);
-        $smarty->display("../templates/korisnici.tpl"); 
+        $smarty->display("../templates/users.tpl"); 
     }
     else{
         $location = "../index.php";

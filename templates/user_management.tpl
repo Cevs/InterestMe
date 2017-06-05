@@ -59,10 +59,18 @@
                 <table id="management-table" class="users-table">
                     <thead>
                         <tr>
-                            <td class="table-tittle" colspan="9">Locked Users</td>
+                            <td class="table-tittle" colspan="11">Locked Users</td>
                         </tr>
                     </thead>
                     <tr>  
+                     
+                        <th>
+                            Update
+                        </th>
+                          
+                        <th>
+                            Delete
+                        </th>
                         <th>
                             First Name
                             <button type="button" id="button-ascending-firstname" class="table-button" >&uarr;</button>
@@ -178,16 +186,20 @@
                     for (var i = 0; i < json.length; i++) {
                         var row = table.insertRow(i);
 
-                        var cellFirstname = row.insertCell(0);
-                        var cellLastname = row.insertCell(1);
-                        var cellUsername = row.insertCell(2);
-                        var cellEmail = row.insertCell(3);
-                        var cellRegistrationDate = row.insertCell(4);
-                        var cellAttempts = row.insertCell(5);
-                        var cellStatus = row.insertCell(6);
-                        var cellLocked = row.insertCell(7);
-                        var cellUnlocked = row.insertCell(8);
+                        var cellUpdate = row.insertCell(0);
+                        var cellDelete = row.insertCell(1);
+                        var cellFirstname = row.insertCell(2);
+                        var cellLastname = row.insertCell(3);
+                        var cellUsername = row.insertCell(4);
+                        var cellEmail = row.insertCell(5);
+                        var cellRegistrationDate = row.insertCell(6);
+                        var cellAttempts = row.insertCell(7);
+                        var cellStatus = row.insertCell(8);
+                        var cellLocked = row.insertCell(9);
+                        var cellUnlocked = row.insertCell(10);
 
+                        cellUpdate.innerHTML = "<a href='modify_user.php?username="+json[i].username+" &action=update'><button  class='image-button' type='button' ><img class='table-image'  src='images/edit.png'></button></a>";
+                        cellDelete.innerHTML = "<a href='modify_user.php?username="+json[i].username+" &action=delete'><button  class ='image-button' type='button'><img class='table-image'  src='images/delete.png'></button></a>";
                         cellFirstname.innerHTML = json[i].firstname;
                         cellLastname.innerHTML = json[i].lastname;
                         cellUsername.innerHTML = json[i].username;
@@ -487,5 +499,7 @@
             }
             //clean the table 
         });
+        
+   
     });
 </script>

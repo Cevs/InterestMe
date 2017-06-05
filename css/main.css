@@ -52,6 +52,7 @@ body{
 
 }
 
+
 html { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }   
 button{       
     font-family: 'Kaushan Script', cursive;
@@ -697,7 +698,22 @@ table{
 
 }
 
+.image-button{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    display: inline-block;
+}
 
+.table-image{
+    width:25px;
+    height:25px;
+    display: block;
+    
+}
 
 /*Small*/
 @media screen and (max-width:400px){

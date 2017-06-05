@@ -85,8 +85,8 @@
            
            
            $sql = "INSERT INTO korisnici (ime, prezime, email, korisnicko_ime, lozinka, kriptirana_lozinka, datum_registriranja, dvorazinska_prijava, zakljucan_pristup, aktivacijski_kod, "
-                   . "vrijeme_isteka_aktivacijskog_koda, status_korisnickog_racuna, vrsta_korisnika_id, neuspjesne_prijave) VALUES ('".$_POST['first-name']."', '".$_POST['last-name']."', '".$_POST['email']."', '".$_POST['username']
-                   ."', '".$_POST['password']."', '".$hash."', '".$virtualTime."', $twoStepLogin,0,'".$activationCode."', '".$codeExpiration."', 'NIJE AKTIVIRAN', 1, 0)";
+                   . "vrijeme_isteka_aktivacijskog_koda, status_korisnickog_racuna, vrsta_korisnika_id, neuspjesne_prijave, ukupno_ostvareni_bodovi) VALUES ('".$_POST['first-name']."', '".$_POST['last-name']."', '".$_POST['email']."', '".$_POST['username']
+                   ."', '".$_POST['password']."', '".$hash."', '".$virtualTime."', $twoStepLogin,0,'".$activationCode."', '".$codeExpiration."', 'NIJE AKTIVIRAN', 1, 0, 0)";
            
            $db->insertDB($sql);
           
