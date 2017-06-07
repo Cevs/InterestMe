@@ -8,7 +8,7 @@ Session::createSession();
 
 //check if user is administrator
 if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
-    $userArray = [];
+    $foiArray = [];
     $keyWords = -1;
     $sql = "";
     $arrayOrders = [];
@@ -91,12 +91,12 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
 
 
     
-        array_push($userArray, array("name" => $name, "description" => $description, "style" => $pageStyle, "moderators" => $moderators,
+        array_push($foiArray, array("name" => $name, "description" => $description, "style" => $pageStyle, "moderators" => $moderators,
             "users" => $users, "discussions" =>  $discussions));
     }
     //return json
     $db->closeConnectionDB();
-    echo json_encode($userArray);
+    echo json_encode($foiArray);
 } else {
     $location = "index.php";
     header("Location: $location");

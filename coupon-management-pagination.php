@@ -8,7 +8,7 @@ Session::createSession();
 
 //check if user is administrator
 if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
-    $interesUserrArray = [];
+    $couponArray = [];
     $keyWords = -1;
     $sql = "";
     $arrayOrders = [];
@@ -26,31 +26,30 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
     $startingLimitNumber = ($page - 1) * $resultsPerPage;
 
      //Save sorting orders of specific column to a array
-    //key = column name in database   value = ASC || DESC || none
-    if (isset($_POST['username']) && isset($_POST['interes']) && isset($_POST['moderator']) && isset($_POST['date'])) {
-        $arrayOrders = array_push_associative($arrayOrders, "korisnicko_ime", $_POST['username']);
-        $arrayOrders = array_push_associative($arrayOrders, "naziv", $_POST['interes']);
-        $arrayOrders = array_push_associative($arrayOrders, "moderator", $_POST['moderator']);
-        $arrayOrders = array_push_associative($arrayOrders, "datum", $_POST['date']); 
+    //key = column name in database   
+    //value = ASC || DESC || none
+    if (isset($_POST['name']) && isset($_POST['using'])) {
+        $arrayOrders = array_push_associative($arrayOrders, "naziv", $_POST['name']);
+        $arrayOrders = array_push_associative($arrayOrders, "broj_koristenja", $_POST['using']);
+ 
     }
 
      // set base sql structure
     if($_POST['key-words'] != -1){
         $keyWords = $_POST['key-words'];
         
-        
-        $sql = "SELECT k.korisnicko_ime, i.naziv, ik.moderator, ik.datum FROM interes_korisnika ik JOIN korisnici k ON "
-                ." k.id_korisnik = ik.id_korisnik JOIN interesi i ON i.id_interes = ik.id_interes "
-                . " WHERE k.korisnicko_ime LIKE '%$keyWords%' OR i.naziv LIKE '%$keyWords%' OR ik.datum LIKE '%$keyWords%'";
+        $sql = "SELECT kc.id_kupon_clanstva ,kc.naziv, kc.pdf, kc.slika, kc.video, (SELECT COUNT(*) FROM kuponi_interesa ki WHERE ki.kupon_clanstva_id = kc.id_kupon_clanstva) as 'broj_koristenja' "
+                . " FROM kuponi_clanstva kc WHERE kc.naziv LIKE '%$keyWords%'";
+ 
     } 
     else{
-         $sql = "SELECT k.korisnicko_ime, i.naziv, ik.moderator, ik.datum FROM interes_korisnika ik JOIN korisnici k ON"
-                 . " k.id_korisnik = ik.id_korisnik JOIN interesi i ON i.id_interes = ik.id_interes";
+         $sql = "SELECT kc.id_kupon_clanstva, kc.naziv, kc.pdf, kc.slika, kc.video, (SELECT COUNT(*) FROM kuponi_interesa ki WHERE ki.kupon_clanstva_id = kc.id_kupon_clanstva) as 'broj_koristenja'"
+                 ." FROM kuponi_clanstva kc";
     }
 
     
     //add ascending or descending order by
-    if ($_POST['username'] != 'none' || $_POST['interes'] != 'none' || $_POST['moderator'] != 'none' || $_POST['date'] != 'none') {
+    if ($_POST['name'] != 'none' || $_POST['using'] != 'none' ) {
         $sql.= " ORDER BY ";
         $counter = 0;
         $arraySize = getCount($arrayOrders);
@@ -76,17 +75,19 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
 
 
     while ($row = mysqli_fetch_array($result)) {
-        $username = $row['korisnicko_ime'];
-        $interes = $row['naziv'];
-        $moderator = ($row['moderator']==1)?"Yes":"No";
-        $date = $row['datum'];
+        $id = $row['id_kupon_clanstva'];
+        $name = $row['naziv'];
+        $pdfPath = $row['pdf'];
+        $imgPath = $row['slika'];
+        $videoPath = $row['video'];
+        $using = $row['broj_koristenja'];
 
         //prepeare array with sql result
-        array_push($interesUserrArray, array("username" => $username, "interes" => $interes, "moderator" => $moderator, "date" => $date));
+        array_push($couponArray, array("id"=>$id, "name" => $name, "pdf" => $pdfPath, "img" => $imgPath, "video" =>$videoPath, "using" => $using));
     }
     //return json
     $db->closeConnectionDB();
-    echo json_encode($interesUserrArray);
+    echo json_encode($couponArray);
 } else {
     $location = "index.php";
     header("Location: $location");
