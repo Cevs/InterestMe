@@ -96,6 +96,11 @@
                             <button type="button" id="button-ascending-users" class="table-button" >&uarr;</button>
                             <button id = "button-descending-users" class="table-button">&darr;</button
                         </th>
+                        <th>
+                            Discussions
+                            <button type="button" id="button-ascending-discussions" class="table-button" >&uarr;</button>
+                            <button id = "button-descending-discussions" class="table-button">&darr;</button
+                        </th>
                        
                     </tr>
                     <tbody id="table-users-body"></tbody>
@@ -128,13 +133,14 @@
         var style = "none";
         var moderators = "none";
         var users = "none";
+        var discussions = "none";
         var page = 1;
         var keyWords = "-1";
         var ajaxFinished = true;
         
-        load_data(page, keyWords, name, style, moderators, users);
+        load_data(page, keyWords, name, style, moderators, users,discussions);
 
-        function load_data(page, keyWords, name, style, moderators, users) {
+        function load_data(page, keyWords, name, style, moderators, users,discussions) {
             
             console.log("page: "+page);
             console.log("key words:"+keyWords);
@@ -142,6 +148,7 @@
             console.log("page style"+style);
             console.log("moderators:"+moderators);
             console.log("users:"+users);
+            console.log("discussions:"+discussions);
             
             $.ajax({
                 url: "foi-management-pagination.php",
@@ -153,7 +160,8 @@
                     "page-style":style,
                     "moderators":moderators,
                     "name":name,
-                    "users":users
+                    "users":users,
+                    "discussions":discussions
                 },
 
                 success: function (json) {
@@ -170,6 +178,7 @@
                         var cellPageStyle = row.insertCell(4);
                         var cellModerators = row.insertCell(5);
                         var cellUsers = row.insertCell(6);
+                        var cellDiscussions = row.insertCell(7);
 
                         cellUpdate.innerHTML = "<a href='foi.php?foiname="+json[i].name+" &action=update'><button  class='image-button' type='button' ><img class='table-image'  src='images/edit.png'></button></a>";
                         cellDelete.innerHTML = "<a href='foi.php?foiname="+json[i].name+" &action=delete'><button  class ='image-button' type='button'><img class='table-image'  src='images/delete.png'></button></a>";
@@ -178,6 +187,7 @@
                         cellPageStyle.innerHTML = json[i].style;
                         cellModerators.innerHTML = json[i].moderators;
                         cellUsers.innerHTML = json[i].users;
+                        cellDiscussions.innerHTML = json[i].discussions;
 
                     }
                      ajaxFinished = true;
@@ -195,7 +205,7 @@
             if(ajaxFinished === true){
                 ajaxFinished = false;
                 $('#table-users-body').empty();
-                load_data(page, keyWords, name, style, moderators, users);
+                load_data(page, keyWords, name, style, moderators, users,discussions);
             }
         });
 
@@ -205,14 +215,14 @@
                 if(ajaxFinished === true){
                     ajaxFinished = false;
                     $('#table-users-body').empty();
-                    load_data(page, keyWords, name, style, moderators, users);
+                    load_data(page, keyWords, name, style, moderators, users,discussions);
                 }
             } else {
                 keyWords = "-1";
                 if(ajaxFinished === true){
                     ajaxFinished = false;
                     $('#table-users-body').empty();
-                    load_data(1, keyWords, name, style, moderators, users);
+                    load_data(1, keyWords, name, style, moderators, users,discussions);
                 }
             }
         });
@@ -340,6 +350,35 @@
             }
         });
 
+         $('#button-descending-discussions').on('click', function () {
+
+            if ($('#button-descending-discussions').hasClass('pressed')) {
+                $('#button-descending-discussions').removeClass('pressed');
+                discussions ="none";
+            } else {
+                if ($('#button-ascending-discussions').hasClass('pressed')) {
+                    $('#button-ascending-discussions').removeClass('pressed');
+                }
+
+                $('#button-descending-discussions').addClass('pressed');
+                discussions = "DESC";
+            }
+        });
+
+        $('#button-ascending-discussions').on('click', function () {
+
+            if ($('#button-ascending-discussions').hasClass('pressed')) {
+                $('#button-ascending-discussions').removeClass('pressed');
+                discussions = "none";
+            } else {
+                if ($('#button-descending-discussions').hasClass('pressed')) {
+                    $('#button-descending-discussions').removeClass('pressed');
+                }
+
+                $('#button-ascending-discussions').addClass('pressed');
+                discussions = "ASC";
+            }
+        });
         
         //on any table button press call ajax function load date with given parameters
         $('.table-button').on('click', function(){
@@ -347,7 +386,7 @@
             if(ajaxFinished===true){
                 ajaxFinished = false;
                 $('#table-users-body').empty();
-                load_data(page, keyWords, name, style, moderators, users);
+                load_data(page, keyWords, name, style, moderators, users,discussions);
             }
             //clean the table 
         });

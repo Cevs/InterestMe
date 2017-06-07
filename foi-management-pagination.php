@@ -31,7 +31,8 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
         $arrayOrders = array_push_associative($arrayOrders, "naziv", $_POST['name']);
         $arrayOrders = array_push_associative($arrayOrders, "naziv_izgleda", $_POST['page-style']);
         $arrayOrders = array_push_associative($arrayOrders, "moderators", $_POST['moderators']);
-        $arrayOrders = array_push_associative($arrayOrders, "users", $_POST['users']);  
+        $arrayOrders = array_push_associative($arrayOrders, "users", $_POST['users']);
+        $arrayOrders = array_push_associative($arrayOrders, "discussions", $_POST['discussions']);
     }
 
      // set base sql structure
@@ -39,21 +40,23 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
         $keyWords = $_POST['key-words'];
         
         
-        $sql = "SELECT  i.naziv, i.opis, s.naziv_izgleda, COUNT(case when ik.moderator = 1 then ik.id_interes else NULL end) as 'moderators',"
-                . " COUNT(case when ik.moderator = 0 then ik.id_interes else NULL end) as 'users' FROM interesi i JOIN izgled_stranica s ON"
-                . " i.izgled_stranice_id = s.id_izgled_stranice LEFT JOIN interes_korisnika ik ON ik.id_interes = i.id_interes "
-                . " WHERE i.naziv LIKE '%$keyWords%' OR i.opis LIKE '%$keyWords%' OR s.naziv_izgleda LIKE '%$keyWords%'"
-                . " GROUP BY i.naziv";
+        $sql = "SELECT i.naziv, i.opis, s.naziv_izgleda, COUNT(case when ik.moderator = 1 then ik.id_interes else NULL end) as 'moderators', "
+                ." COUNT(case when ik.moderator = 0 then ik.id_interes else NULL end) as 'users', (SELECT COUNT(*) FROM diskusije WHERE interes_id = i.id_interes) as 'discussions'"
+                ." FROM interesi i JOIN izgled_stranica s ON i.izgled_stranice_id = s.id_izgled_stranice  JOIN interes_korisnika ik ON ik.id_interes = i.id_interes "
+                ." JOIN diskusije d ON d.interes_id = i.id_interes"
+                ." WHERE i.naziv LIKE '%$keyWords%' OR i.opis LIKE '%$keyWords%' OR s.naziv_izgleda LIKE '%$keyWords%'"
+                ." GROUP BY i.naziv";
     } 
     else{
-         $sql = "SELECT i.naziv, i.opis, s.naziv_izgleda, COUNT(case when ik.moderator = 1 then ik.id_interes else NULL end) as 'moderators',"
-                . " COUNT(case when ik.moderator = 0 then ik.id_interes else NULL end) as 'users' FROM interesi i JOIN izgled_stranica s ON"
-                . " i.izgled_stranice_id = s.id_izgled_stranice LEFT JOIN interes_korisnika ik ON ik.id_interes = i.id_interes GROUP BY i.naziv";
+         $sql = "SELECT i.naziv, i.opis, s.naziv_izgleda, COUNT(case when ik.moderator = 1 then ik.id_interes else NULL end) as 'moderators', "
+                ." COUNT(case when ik.moderator = 0 then ik.id_interes else NULL end) as 'users', (SELECT COUNT(*) FROM diskusije WHERE interes_id = i.id_interes) as 'discussions'"
+                ." FROM interesi i JOIN izgled_stranica s ON i.izgled_stranice_id = s.id_izgled_stranice  JOIN interes_korisnika ik ON ik.id_interes = i.id_interes "
+                ." JOIN diskusije d ON d.interes_id = i.id_interes GROUP BY i.naziv";
     }
 
     
     //add ascending or descending order by
-    if ($_POST['name'] != 'none' || $_POST['page-style'] != 'none' || $_POST['moderators'] != 'none' || $_POST['users'] != 'none') {
+    if ($_POST['name'] != 'none' || $_POST['page-style'] != 'none' || $_POST['moderators'] != 'none' || $_POST['users'] != 'none' || $_POST['discussions'] != 'none') {
         $sql.= " ORDER BY ";
         $counter = 0;
         $arraySize = getCount($arrayOrders);
@@ -84,11 +87,12 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
         $pageStyle = $row['naziv_izgleda'];
         $moderators = $row['moderators'];
         $users = $row['users'];
+        $discussions = $row['discussions'];
 
 
     
         array_push($userArray, array("name" => $name, "description" => $description, "style" => $pageStyle, "moderators" => $moderators,
-            "users" => $users));
+            "users" => $users, "discussions" =>  $discussions));
     }
     //return json
     $db->closeConnectionDB();
