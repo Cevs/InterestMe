@@ -36,8 +36,9 @@
                                 <li class="nav-list-item"><a href="index.php" class="inactive" >Home</a></li>
                                 <li class="nav-list-item" style="display:{$administrator}"><a href="time.php" class="inactive" >System Time</a></li>
                                 <li class="nav-list-item" style="display:{$administrator}"><a href="user_management.php" class="inactive">User Management</a></li>
-                                <li class="nav-list-item" style="display:{$administrator}"><a href="foi-management.php" class="active">Foi</a></li>
-                                <li class="nav-list-item" style="display:{$administrator}"><a href="interes-user-management.php" class="inactive">interes-user</a></li>
+                                <li class="nav-list-item" style="display:{$administrator}"><a href="foi-management.php" class="inactive">Foi</a></li>
+                                <li class="nav-list-item" style="display:{$administrator}"><a href="interes-user-management.php" class="active">interes-user</a></li>
+                              
                             </ul>
                             <div class="nav-button-wrapper">
                                 <button type="button" class="button-login-mobile" onclick="window.parent.location.href = 'login.php'" style ="display:{$loginDisplay}">Log In</button>
@@ -73,29 +74,26 @@
                             Delete
                         </th>
                         <th>
-                            Name
-                            <button type="button" id="button-ascending-name" class="table-button" >&uarr;</button>
-                            <button id = "button-descending-name" class="table-button">&darr;</button>
+                            Username
+                            <button type="button" id="button-ascending-username" class="table-button" >&uarr;</button>
+                            <button id = "button-descending-username" class="table-button">&darr;</button>
                         </th>
                         <th>
-                            Description
-                         
+                            Interes
+                            <button type="button" id="button-ascending-interes" class="table-button" >&uarr;</button>
+                            <button id = "button-descending-interes" class="table-button">&darr;</button>
                         </th>
                         <th>
-                            Page style
-                            <button type="button" id="button-ascending-style" class="table-button" >&uarr;</button>
-                            <button id = "button-descending-style" class="table-button">&darr;</button
+                            Moderator
+                            <button type="button" id="button-ascending-moderator" class="table-button" >&uarr;</button>
+                            <button id = "button-descending-moderator" class="table-button">&darr;</button>
                         </th>
                         <th>
-                            Moderators
-                            <button type="button" id="button-ascending-moderators" class="table-button" >&uarr;</button>
-                            <button id = "button-descending-moderators" class="table-button">&darr;</button
+                            Datum
+                            <button type="button" id="button-ascending-date" class="table-button" >&uarr;</button>
+                            <button id = "button-descending-date" class="table-button">&darr;</button
                         </th>
-                        <th>
-                            Users
-                            <button type="button" id="button-ascending-users" class="table-button" >&uarr;</button>
-                            <button id = "button-descending-users" class="table-button">&darr;</button
-                        </th>
+                      
                        
                     </tr>
                     <tbody id="table-users-body"></tbody>
@@ -108,7 +106,7 @@
                     </tfoot>  
                     </tbody> 
                 </table>
-                <input  class="button-unlock" type="button" value="Create Field of interest" onclick="window.parent.location.href = 'foi.php?action=insert'">
+                <input  class="button-unlock" type="button" value="Create Field of interest" onclick="window.parent.location.href = 'interes-user.php?action=insert'">
               
             </div>   
         </div>
@@ -124,36 +122,36 @@
 <script>
     $(document).ready(function () {
         
-        var name = "none";
-        var style = "none";
-        var moderators = "none";
-        var users = "none";
+        var username = "none";
+        var interes = "none";
+        var moderator = "none";
+        var date = "none";
         var page = 1;
         var keyWords = "-1";
         var ajaxFinished = true;
         
-        load_data(page, keyWords, name, style, moderators, users);
+        load_data(page, keyWords, username, interes, moderator, date);
 
-        function load_data(page, keyWords, name, style, moderators, users) {
+        function load_data(page, keyWords, username, interes, moderator, date) {
             
             console.log("page: "+page);
             console.log("key words:"+keyWords);
-            console.log("name:"+name);
-            console.log("page style"+style);
-            console.log("moderators:"+moderators);
-            console.log("users:"+users);
+            console.log("username:"+username);
+            console.log("moderator"+moderator);
+            console.log("date:"+date);
+            console.log("interes:"+interes);
             
             $.ajax({
-                url: "foi-management-pagination.php",
+                url: "interes-user-management-pagination.php",
                 method: "POST",
                 dataType: 'json',
                 data: {
                     "page": page,
                     "key-words":keyWords,
-                    "page-style":style,
-                    "moderators":moderators,
-                    "name":name,
-                    "users":users
+                    "username":username,
+                    "moderator":moderator,
+                    "date":date,
+                    "interes":interes
                 },
 
                 success: function (json) {
@@ -165,19 +163,17 @@
 
                         var cellUpdate = row.insertCell(0);
                         var cellDelete = row.insertCell(1);
-                        var cellName = row.insertCell(2);
-                        var cellDescription = row.insertCell(3);
-                        var cellPageStyle = row.insertCell(4);
-                        var cellModerators = row.insertCell(5);
-                        var cellUsers = row.insertCell(6);
+                        var cellUsername = row.insertCell(2);
+                        var cellInteres = row.insertCell(3);
+                        var cellModerator = row.insertCell(4);
+                        var cellDate = row.insertCell(5);
 
-                        cellUpdate.innerHTML = "<a href='foi.php?foiname="+json[i].name+" &action=update'><button  class='image-button' type='button' ><img class='table-image'  src='images/edit.png'></button></a>";
-                        cellDelete.innerHTML = "<a href='foi.php?foiname="+json[i].name+" &action=delete'><button  class ='image-button' type='button'><img class='table-image'  src='images/delete.png'></button></a>";
-                        cellName.innerHTML = json[i].name;
-                        cellDescription.innerHTML = json[i].description;
-                        cellPageStyle.innerHTML = json[i].style;
-                        cellModerators.innerHTML = json[i].moderators;
-                        cellUsers.innerHTML = json[i].users;
+                        cellUpdate.innerHTML = "<a href='interes-user.php?username="+json[i].username+"&interes="+json[i].interes+"&action=update'><button  class='image-button' type='button' ><img class='table-image'  src='images/edit.png'></button></a>";
+                        cellDelete.innerHTML = "<a href='interes-user.php?username="+json[i].username+"&interes="+json[i].interes+"&action=delete'><button  class ='image-button' type='button'><img class='table-image'  src='images/delete.png'></button></a>";
+                        cellUsername.innerHTML = json[i].username;
+                        cellInteres.innerHTML = json[i].interes;
+                        cellModerator.innerHTML = json[i].moderator;
+                        cellDate.innerHTML = json[i].date;
 
                     }
                      ajaxFinished = true;
@@ -195,7 +191,7 @@
             if(ajaxFinished === true){
                 ajaxFinished = false;
                 $('#table-users-body').empty();
-                load_data(page, keyWords, name, style, moderators, users);
+                load_data(page, keyWords, username, interes, moderator, date);
             }
         });
 
@@ -205,138 +201,138 @@
                 if(ajaxFinished === true){
                     ajaxFinished = false;
                     $('#table-users-body').empty();
-                    load_data(page, keyWords, name, style, moderators, users);
+                    load_data(page, keyWords, username, interes, moderator, date);
                 }
             } else {
                 keyWords = "-1";
                 if(ajaxFinished === true){
                     ajaxFinished = false;
                     $('#table-users-body').empty();
-                    load_data(1, keyWords, name, style, moderators, users);
+                    load_data(1, keyWords, username, interes, moderator, date);
                 }
             }
         });
 
 
-         $('#button-descending-name').on('click', function () {
+         $('#button-descending-username').on('click', function () {
 
-            if ($('#button-descending-name').hasClass('pressed')) {
-                $('#button-descending-name').removeClass('pressed');
-                name = "none";
+            if ($('#button-descending-username').hasClass('pressed')) {
+                $('#button-descending-username').removeClass('pressed');
+                username = "none";
             } else {
-                if ($('#button-ascending-name').hasClass('pressed')) {
-                    $('#button-ascending-name').removeClass('pressed');
+                if ($('#button-ascending-username').hasClass('pressed')) {
+                    $('#button-ascending-username').removeClass('pressed');
                 }
 
-                $('#button-descending-name').addClass('pressed');
-                name = "DESC";
+                $('#button-descending-username').addClass('pressed');
+                username = "DESC";
             }
         });
 
-        $('#button-ascending-name').on('click', function () {
+        $('#button-ascending-username').on('click', function () {
 
-            if ($('#button-ascending-name').hasClass('pressed')) {
-                $('#button-ascending-name').removeClass('pressed');
-                name = "none";
+            if ($('#button-ascending-username').hasClass('pressed')) {
+                $('#button-ascending-username').removeClass('pressed');
+                username = "none";
             } else {
-                if ($('#button-descending-name').hasClass('pressed')) {
-                    $('#button-descending-name').removeClass('pressed');
+                if ($('#button-descending-username').hasClass('pressed')) {
+                    $('#button-descending-username').removeClass('pressed');
                 }
 
-                $('#button-ascending-name').addClass('pressed');
-                name = "ASC";
+                $('#button-ascending-username').addClass('pressed');
+                username = "ASC";
             }
         });
         
-        $('#button-descending-style').on('click', function () {
+        $('#button-descending-interes').on('click', function () {
 
-            if ($('#button-descending-style').hasClass('pressed')) {
-                $('#button-descending-style').removeClass('pressed');
-                style = "none";
+            if ($('#button-descending-interes').hasClass('pressed')) {
+                $('#button-descending-interes').removeClass('pressed');
+                interes = "none";
             } else {
-                if ($('#button-ascending-style').hasClass('pressed')) {
-                    $('#button-ascending-style').removeClass('pressed');
+                if ($('#button-ascending-interes').hasClass('pressed')) {
+                    $('#button-ascending-interes').removeClass('pressed');
                 }
 
-                $('#button-descending-style').addClass('pressed');
-                style = "DESC";
+                $('#button-descending-interes').addClass('pressed');
+                interes = "DESC";
             }
         });
 
-        $('#button-ascending-style').on('click', function () {
+        $('#button-ascending-interes').on('click', function () {
 
-            if ($('#button-ascending-style').hasClass('pressed')) {
-                $('#button-ascending-style').removeClass('pressed');
-                style = "none";
+            if ($('#button-ascending-interes').hasClass('pressed')) {
+                $('#button-ascending-interes').removeClass('pressed');
+                interes = "none";
             } else {
-                if ($('#button-descending-style').hasClass('pressed')) {
-                    $('#button-descending-style').removeClass('pressed');
+                if ($('#button-descending-interes').hasClass('pressed')) {
+                    $('#button-descending-interes').removeClass('pressed');
                 }
 
-                $('#button-ascending-style').addClass('pressed');
-                style = "ASC";
+                $('#button-ascending-interes').addClass('pressed');
+                interes = "ASC";
             }
         });
                
-        $('#button-descending-moderators').on('click', function () {
+        $('#button-descending-moderator').on('click', function () {
 
-            if ($('#button-descending-moderators').hasClass('pressed')) {
-                $('#button-descending-moderators').removeClass('pressed');
-                moderators = "none";
+            if ($('#button-descending-moderator').hasClass('pressed')) {
+                $('#button-descending-moderator').removeClass('pressed');
+                moderator = "none";
             } else {
-                if ($('#button-ascending-moderators').hasClass('pressed')) {
-                    $('#button-ascending-moderators').removeClass('pressed');
+                if ($('#button-ascending-moderator').hasClass('pressed')) {
+                    $('#button-ascending-moderator').removeClass('pressed');
                 }
 
-                $('#button-descending-moderators').addClass('pressed');
-                moderators = "DESC";
+                $('#button-descending-moderator').addClass('pressed');
+                moderator = "DESC";
             }
             
             
         });
 
-        $('#button-ascending-moderators').on('click', function () {
+        $('#button-ascending-moderator').on('click', function () {
 
-            if ($('#button-ascending-moderators').hasClass('pressed')) {
-                $('#button-ascending-moderators').removeClass('pressed');
-                moderators = "none";
+            if ($('#button-ascending-moderator').hasClass('pressed')) {
+                $('#button-ascending-moderator').removeClass('pressed');
+                moderator = "none";
             } else {
-                if ($('#button-descending-moderators').hasClass('pressed')) {
-                    $('#button-descending-moderators').removeClass('pressed');
+                if ($('#button-descending-moderator').hasClass('pressed')) {
+                    $('#button-descending-moderator').removeClass('pressed');
                 }
 
-                $('#button-ascending-moderators').addClass('pressed');
-                moderators = "ASC";
+                $('#button-ascending-moderator').addClass('pressed');
+                moderator = "ASC";
             }
         });
 
-        $('#button-descending-users').on('click', function () {
+        $('#button-descending-date').on('click', function () {
 
-            if ($('#button-descending-users').hasClass('pressed')) {
-                $('#button-descending-users').removeClass('pressed');
-                users ="none";
+            if ($('#button-descending-date').hasClass('pressed')) {
+                $('#button-descending-date').removeClass('pressed');
+                date ="none";
             } else {
-                if ($('#button-ascending-users').hasClass('pressed')) {
-                    $('#button-ascending-users').removeClass('pressed');
+                if ($('#button-ascending-date').hasClass('pressed')) {
+                    $('#button-ascending-date').removeClass('pressed');
                 }
 
-                $('#button-descending-users').addClass('pressed');
-                users = "DESC";
+                $('#button-descending-date').addClass('pressed');
+                date = "DESC";
             }
         });
 
-        $('#button-ascending-users').on('click', function () {
+        $('#button-ascending-date').on('click', function () {
 
-            if ($('#button-ascending-users').hasClass('pressed')) {
-                $('#button-ascending-users').removeClass('pressed');
-                users = "none";
+            if ($('#button-ascending-date').hasClass('pressed')) {
+                $('#button-ascending-date').removeClass('pressed');
+                date = "none";
             } else {
-                if ($('#button-descending-users').hasClass('pressed')) {
-                    $('#button-descending-users').removeClass('pressed');
+                if ($('#button-descending-date').hasClass('pressed')) {
+                    $('#button-descending-date').removeClass('pressed');
                 }
 
-                $('#button-ascending-users').addClass('pressed');
-                users = "ASC";
+                $('#button-ascending-date').addClass('pressed');
+                date = "ASC";
             }
         });
 
@@ -347,7 +343,7 @@
             if(ajaxFinished===true){
                 ajaxFinished = false;
                 $('#table-users-body').empty();
-                load_data(page, keyWords, name, style, moderators, users);
+                load_data(page, keyWords, username, interes, moderator, date);
             }
             //clean the table 
         });

@@ -11,9 +11,7 @@
     $logoutButtonDisplay = "none";
     $loginButtonDisplay = "inline";
     $signinButtonDisplay = "inline";
-    $foiForm = "none"; //field of interest form
-    $usersForm = "none";
-    $timeConfigurationForm = "none";
+    $administrator = "none";
     $action = "";
 
     //administrator
@@ -21,9 +19,8 @@
         $logoutButtonDisplay = "inline";
         $loginButtonDisplay = "none";
         $signinButtonDisplay = "none";
-        $foiForm = "inline";
-        $timeConfigurationForm = "inline";
-        $usersForm = "inline";
+        $administrator = "inline";
+
       
          //Pressed update button on table
         if (isset($_GET['foiname']) && !empty($_GET['foiname']) && isset($_GET['action'])&& $_GET['action']==='update') {
@@ -86,8 +83,7 @@
         
         //Set common options and display form  
         $smarty->assign("action",$action);
-        $smarty->assign("usersForm", $usersForm);
-        $smarty->assign("timeConfigurationForm", $timeConfigurationForm);
+        $smarty->assign("administrator",$administrator);
         $smarty->assign("loginDisplay", $loginButtonDisplay);
         $smarty->assign("signinDisplay", $signinButtonDisplay);
         $smarty->assign("logoutDisplay", $logoutButtonDisplay);

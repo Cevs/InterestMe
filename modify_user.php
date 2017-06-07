@@ -14,9 +14,7 @@ Session::createSession();
 $logoutButtonDisplay = "none";
 $loginButtonDisplay = "inline";
 $signinButtonDisplay = "inline";
-$foiForm = "none"; //field of interest form
-$usersForm = "none";
-$timeConfigurationForm = "none";
+$administrator = "none";
 
 
 $userData = [];
@@ -27,9 +25,7 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
     $logoutButtonDisplay = "inline";
     $loginButtonDisplay = "none";
     $signinButtonDisplay = "none";
-    $foiForm = "inline";
-    $timeConfigurationForm = "inline";
-    $usersForm = "inline";
+    $administrator = "inline";
     $action = "";
     $userTypes = getAllTypes();
 
@@ -123,8 +119,7 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
     //Set common options and display form
     $smarty->assign("action",$action);
     $smarty->assign("user_types", $userTypes);
-    $smarty->assign("usersForm", $usersForm);
-    $smarty->assign("timeConfigurationForm", $timeConfigurationForm);
+    $smarty->assign("administrator",$administrator);
     $smarty->assign("loginDisplay", $loginButtonDisplay);
     $smarty->assign("signinDisplay", $signinButtonDisplay);
     $smarty->assign("logoutDisplay", $logoutButtonDisplay);

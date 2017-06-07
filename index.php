@@ -10,9 +10,7 @@
     $logoutButtonDisplay = "none";
     $loginButtonDisplay = "inline";
     $signinButtonDisplay = "inline";
-    $foiForm = "none"; //field of interest form
-    $usersForm ="none";
-    $timeConfigurationForm = "none";
+    $administrator = "none";
     
     if(isset($_SESSION['user'])){
         $array = Session::returnUserData();
@@ -23,20 +21,16 @@
         
         //administrator
         if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
-            $foiForm = "inline";
-            $timeConfigurationForm = "inline";
-            $usersForm = "inline";
+            $administrator = "inline";
         }
         
     }
     
     $smarty = new Smarty();
-    $smarty->assign("usersForm",$usersForm);
-    $smarty->assign("timeConfigurationForm",$timeConfigurationForm);
+    $smarty->assign("administrator",$administrator);
     $smarty->assign("loginDisplay",$loginButtonDisplay);
     $smarty->assign("signinDisplay",$signinButtonDisplay);
     $smarty->assign("logoutDisplay",$logoutButtonDisplay);
-    $smarty->assign("foiForm",$foiForm);
     $smarty->assign("tekst",$tekst);
     $smarty->display("templates/index.tpl");
 ?>

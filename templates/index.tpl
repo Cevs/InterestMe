@@ -33,9 +33,10 @@
                         <div class="nav-links">
                             <ul id="nav-list-items">
                                 <li class="nav-list-item"><a href="index.php" class="active" >Home</a></li>
-                                <li class="nav-list-item" style="display:{$usersForm}"><a href="time.php" class="inactive" >System Time</a></li>
-                                <li class="nav-list-item" style="display:{$timeConfigurationForm}"><a href="user_management.php" class="inactive">User Management</a></li>
-                                <li class="nav-list-item" style="display:{$foiForm}"><a href="foi.php" class="inactive">Foi</a></li>   
+                                <li class="nav-list-item" style="display:{$administrator}"><a href="time.php" class="inactive" >System Time</a></li>
+                                <li class="nav-list-item" style="display:{$administrator}"><a href="user_management.php" class="inactive">User Management</a></li>
+                                <li class="nav-list-item" style="display:{$administrator}"><a href="foi-management.php" class="inactive">Foi</a></li>
+                                <li class="nav-list-item" style="display:{$administrator}"><a href="interes-user-management.php" class="inactive">interes-user</a></li>
                             </ul>
                             <div class="nav-button-wrapper">
                                 <button type="button" class="button-login-mobile" onclick="window.parent.location.href = 'login.php'" style ="display:{$loginDisplay}">Log In</button>

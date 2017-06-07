@@ -14,22 +14,22 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
 
     $pg = new Paging();
     $resultsPerPage = $pg->getResultsPerPage();
-    $numberOfPages = $pg->getNumberOfPages("interesi") -1;
+    $numberOfPages = $pg->getNumberOfPages("interes_korisnika") -1 ;
 
     $db->closeConnectionDB();
 
     $logoutButtonDisplay = "inline";
     $loginButtonDisplay = "none";
     $signinButtonDisplay = "none";
-    $administrator = "inline";  //administrator link to style display inline
+    $administrator = "inline";
 
     $smarty = new Smarty();
+    $smarty->assign("administrator",$administrator);
     $smarty->assign("loginDisplay", $loginButtonDisplay);
     $smarty->assign("signinDisplay", $signinButtonDisplay);
     $smarty->assign("logoutDisplay", $logoutButtonDisplay);
-    $smarty->assign("administrator", $administrator);
     $smarty->assign("paging", $numberOfPages);
-    $smarty->display('templates/foi-management.tpl');
+    $smarty->display('templates/interes-user-management.tpl');
 } else {
     $location = "index.php";
     header("Location: $location");

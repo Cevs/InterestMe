@@ -27,11 +27,11 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
 
      //Save sorting orders of specific column to a array
     //key = column name in database   value = ASC || DESC || none
-    if (isset($_POST['name']) && isset($_POST['page-style']) && isset($_POST['moderators']) && isset($_POST['users'])) {
-        $arrayOrders = array_push_associative($arrayOrders, "naziv", $_POST['name']);
-        $arrayOrders = array_push_associative($arrayOrders, "naziv_izgleda", $_POST['page-style']);
-        $arrayOrders = array_push_associative($arrayOrders, "moderators", $_POST['moderators']);
-        $arrayOrders = array_push_associative($arrayOrders, "users", $_POST['users']);  
+    if (isset($_POST['username']) && isset($_POST['interes']) && isset($_POST['moderator']) && isset($_POST['date'])) {
+        $arrayOrders = array_push_associative($arrayOrders, "korisnicko_ime", $_POST['username']);
+        $arrayOrders = array_push_associative($arrayOrders, "naziv", $_POST['interes']);
+        $arrayOrders = array_push_associative($arrayOrders, "moderator", $_POST['moderator']);
+        $arrayOrders = array_push_associative($arrayOrders, "datum", $_POST['date']); 
     }
 
      // set base sql structure
@@ -39,21 +39,18 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
         $keyWords = $_POST['key-words'];
         
         
-        $sql = "SELECT  i.naziv, i.opis, s.naziv_izgleda, COUNT(case when ik.moderator = 1 then ik.id_interes else NULL end) as 'moderators',"
-                . " COUNT(case when ik.moderator = 0 then ik.id_interes else NULL end) as 'users' FROM interesi i JOIN izgled_stranica s ON"
-                . " i.izgled_stranice_id = s.id_izgled_stranice LEFT JOIN interes_korisnika ik ON ik.id_interes = i.id_interes "
-                . " WHERE i.naziv LIKE '%$keyWords%' OR i.opis LIKE '%$keyWords%' OR s.naziv_izgleda LIKE '%$keyWords%'"
-                . " GROUP BY i.naziv";
+        $sql = "SELECT k.korisnicko_ime, i.naziv, ik.moderator, ik.datum FROM interes_korisnika ik JOIN korisnici k ON "
+                ." k.id_korisnik = ik.id_korisnik JOIN interesi i ON i.id_interes = ik.id_interes "
+                . " WHERE k.korisnicko_ime LIKE '%$keyWords%' OR i.naziv LIKE '%$keyWords%' OR ik.datum LIKE '%$keyWords%'";
     } 
     else{
-         $sql = "SELECT i.naziv, i.opis, s.naziv_izgleda, COUNT(case when ik.moderator = 1 then ik.id_interes else NULL end) as 'moderators',"
-                . " COUNT(case when ik.moderator = 0 then ik.id_interes else NULL end) as 'users' FROM interesi i JOIN izgled_stranica s ON"
-                . " i.izgled_stranice_id = s.id_izgled_stranice LEFT JOIN interes_korisnika ik ON ik.id_interes = i.id_interes GROUP BY i.naziv";
+         $sql = "SELECT k.korisnicko_ime, i.naziv, ik.moderator, ik.datum FROM interes_korisnika ik JOIN korisnici k ON"
+                 . " k.id_korisnik = ik.id_korisnik JOIN interesi i ON i.id_interes = ik.id_interes";
     }
 
     
     //add ascending or descending order by
-    if ($_POST['name'] != 'none' || $_POST['page-style'] != 'none' || $_POST['moderators'] != 'none' || $_POST['users'] != 'none') {
+    if ($_POST['username'] != 'none' || $_POST['interes'] != 'none' || $_POST['moderator'] != 'none' || $_POST['date'] != 'none') {
         $sql.= " ORDER BY ";
         $counter = 0;
         $arraySize = getCount($arrayOrders);
@@ -79,16 +76,13 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
 
 
     while ($row = mysqli_fetch_array($result)) {
-        $name = $row['naziv'];
-        $description = $row['opis'];
-        $pageStyle = $row['naziv_izgleda'];
-        $moderators = $row['moderators'];
-        $users = $row['users'];
+        $username = $row['korisnicko_ime'];
+        $interes = $row['naziv'];
+        $moderator = ($row['moderator']==1)?"Yes":"No";
+        $date = $row['datum'];
 
-
-    
-        array_push($userArray, array("name" => $name, "description" => $description, "style" => $pageStyle, "moderators" => $moderators,
-            "users" => $users));
+        //prepeare array with sql result
+        array_push($userArray, array("username" => $username, "interes" => $interes, "moderator" => $moderator, "date" => $date));
     }
     //return json
     $db->closeConnectionDB();
