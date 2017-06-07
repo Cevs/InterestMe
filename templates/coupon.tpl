@@ -50,7 +50,7 @@
         </header>
 
         <div id="cont">
-            <form id="coupon-form" method="post" action = "coupon.php" enctype="multipart/form-data">
+            <form id="coupon-form" method="post" action = "coupon.php" enctype="multipart/form-data" novalidate="novalidate">
                 <label for ="coupon-name">Name*</label>
                 <input id ="coupon-name" name="coupon-name" type ="text"><br>
                 <label for ="coupon-description">Description*</label>
@@ -59,17 +59,24 @@
                 <div id="image_preview">
                     <img id="previewing"  />
                 </div>
-                                
+
                 <div id="selectImage">
-                    <label>Select Your Image</label><br/>
-                    <input type="file" name="file" id="file" required />
+                    <label>Select Image</label><br>
+                    <input type="file" name="file" id="file" required>
                 </div>
-                <div id="message">{$error}</div>
+
+                <div id="selectVideo">
+                    <label>Select Video</label><br>
+                    <input type="file" name="video" id="video">
+                </div>
+
+                <div id="message"></div>
+
                 <input type="hidden" name="MAX_FILE_SIZE" value="2097152" /> <!-- 2MB -->
                 <input type="submit" value="Save">
             </form>
         </div>
-                                
+
         <footer>
             <div id="footer-index" class="footer">
                 <a class="about-author" href="#">&copy; 2017. A. Martinčević</a>
@@ -83,20 +90,20 @@
 <script>
     $(document).ready(function (e) {
         var formData = new FormData();
-        
+
         $("#coupon-from").on('submit', (function (e) {
-            console.log("Coupon Name:"+$("#coupon-name").val());
-            console.log("Coupon Name:"+$("#coupon-description").val());
+            console.log("Coupon Name:" + $("#coupon-name").val());
+            console.log("Coupon Name:" + $("#coupon-description").val());
             e.preventDefault();
             $("#message").empty();
             $.ajax({
-                url: "coupon.php", 
-                type: "POST", 
-                data: new FormData(this), 
+                url: "coupon.php",
+                type: "POST",
+                data: new FormData(this),
                 contentType: false,
-                cache: false, 
-                processData: false, 
-                success: function (data)   
+                cache: false,
+                processData: false,
+                success: function (data)
                 {
                     $("#message").html(data);
                 }
@@ -104,25 +111,39 @@
         }));
 
 // Function to preview image after validation
-        $(function () {
-            $("#file").change(function () {
-                $("#message").empty(); 
-                var file = this.files[0];
-                var imagefile = file.type;
-                var match = ["image/jpeg", "image/png", "image/jpg"];
-                if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2])))
-                {
-                    //$('#previewing').attr('src', 'noimage.png');
-                    $("#message").html("<p id='error'>Please Select A valid Image File</p>" + "<h4>Note</h4>" + "<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
-                    return false;
-                } else
-                {
-                    var reader = new FileReader();
-                    reader.onload = imageIsLoaded;
-                    reader.readAsDataURL(this.files[0]);
-                }
-            });
+
+        $("#file").change(function () {
+            $("#message").empty();
+            var file = this.files[0];
+            var imagefile = file.type;
+            var match = ["image/jpeg", "image/png", "image/jpg"];
+            if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2])))
+            {
+                console.log("krivi format");
+                //$('#previewing').attr('src', 'noimage.png');
+                $("#message").html("<p id='error'>Please Select A valid Image File</p>" + "<h4>Note</h4>" + "<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
+                return false;
+            } else
+            {
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
         });
+
+
+
+        $("#video").change(function () {
+            $("#message").empty();
+            var file = this.files[0];
+            var videofile = file.type;
+            var match = ["video/mp4", "video/ogv", "video/webm"];
+            if (!((videofile == match[0]) || (videofile == match[1]) || (videofile == match[2]))) {
+                $("#message").html("<p id='error'>Please Select A valid video File</p>" + "<h4>Note</h4>" + "<span id='error_message'>Only mp4, webm and ogv video type allowed</span>");
+            }
+        });
+
+
         function imageIsLoaded(e) {
             $("#file").css("color", "green");
             $('#image_preview').css("display", "block");

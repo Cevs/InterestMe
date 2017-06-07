@@ -99,7 +99,7 @@
                     </tfoot>  
                     </tbody> 
                 </table>
-                <input  class="button-unlock" type="button" value="Create Coupon" onclick="window.parent.location.href = 'coupon.php?'">
+                <input  class="button-unlock" type="button" value="Create Coupon" onclick="window.parent.location.href = 'coupon.php'">
 
             </div>   
         </div>
@@ -157,11 +157,17 @@
 
 
 
-                        cellDelete.innerHTML = "<a href='coupon.php?id=" + json[i].id + " &action=delete'><button  class ='image-button' type='button'><img class='table-image'  src='images/delete.png'></button></a>";
+                        cellDelete.innerHTML = "<a href='coupon.php?id=" + json[i].id + "&name="+json[i].name+" &action=delete'><button  class ='image-button' type='button'><img class='table-image'  src='images/delete.png'></button></a>";
                         cellName.innerHTML = json[i].name;
-                        cellPDF.innerHTML = "<a href='" + json[i].pdf + "' onclick='window.open('MyPDF.pdf', '_blank', 'fullscreen=yes'); return false;'>link</a>"
+                        cellPDF.innerHTML = "<a href='" + json[i].pdf + "' onclick='window.open('"+json[i].pdf+"', '_blank', 'fullscreen=yes'); return false;'>link</a>";
                         cellImg.innerHTML = "<a href='"+json[i].img+"' onclick = 'swipe();'>link</a>";
-                        cellVideo.innerHTML = json[i].video;
+                        if(json[i].video !== null){
+                          cellVideo.innerHTML = "<a href='" + json[i].video + "' onclick='window.open(_blank', 'fullscreen=yes'); return false;'>link</a>";  
+                        }
+                        else{
+                          cellVideo.innerHTML = "";
+                        }
+                        
                         cellUsing.innerHTML = json[i].using;
 
 

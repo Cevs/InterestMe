@@ -18,59 +18,80 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
 
     $smarty = new Smarty();
 
+
+    $allowedImageExtensions = array("png", "jpeg", "jpg");
+    $allowedVideoExtensions = array("webm", "mp4", "ogv");
+
     if (isset($_FILES["file"]["type"])) {
-        $extensions = array("png", "jpeg", "jpg");
-        $nameArray = explode(".", $_FILES["file"]["name"]);
+
+        $imageNameArray = explode(".", $_FILES["file"]["name"]);
         //get the last item in array - file extension
-        $file_extensions = end($nameArray);
+        $image_extensions = end($imageNameArray);
 
-        if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpeg") || ($_FILES["file"]["type"] == "image/jpg")) && ($_FILES["file"]["size"] < 2097152) && in_array($file_extensions, $extensions)) {
-
+        if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpeg") || ($_FILES["file"]["type"] == "image/jpg")) && ($_FILES["file"]["size"] < 2097152) && in_array($image_extensions, $allowedImageExtensions)) {
             if ($_FILES["file"]["error"] > 0) {
-                $smarty->assign("error", $_FILES['file']['error']);
-                $smarty->assign("administrator", $administrator);
-                $smarty->assign("loginDisplay", $loginButtonDisplay);
-                $smarty->assign("signinDisplay", $signinButtonDisplay);
-                $smarty->assign("logoutDisplay", $logoutButtonDisplay);
-                $smarty->display("templates/coupon.tpl");
+                $smarty->assign("image_error", $_FILES['file']['error']);
             } else {
-
-                $targetPath = "";
+                $targetImagePath = "";
                 if (file_exists("coupons/images/" . $_FILES['file']['name'])) {
-                    $targetPath = "coupons/images/" . $_FILES['file']['name'];
+                    $targetImagePath = "coupons/images/" . $_FILES['file']['name'];
                 } else {
                     $sourcePath = $_FILES['file']['tmp_name']; // Storing source path of the file in a variable
-                    $targetPath = "coupons/images/" . $_FILES['file']['name']; // Target path where file is to be stored
-                    move_uploaded_file($sourcePath, $targetPath); // saving picture on server so it can be used for creating pdf
+                    $targetImagePath = "coupons/images/" . $_FILES['file']['name']; // Target path where file is to be stored
+                    move_uploaded_file($sourcePath, $targetImagePath); // saving picture on server so it can be used for creating pdf
                 }
 
                 $title = $_POST['coupon-name'];
                 $description = $_POST['coupon-description'];
-                $imgPath = $targetPath;
+                $imgPath = $targetImagePath;
                 $filename = $title . ".pdf";
-                $dirPath = "coupons/$filename";
+                $pdfPath = "coupons/$filename";
 
-                generateSavePDF($title, $description, $imgPath, $dirPath);
-                saveInDb($title, $imgPath, $dirPath);
+
+                if (isset($_FILES["video"]["type"])) {
+                    $videoNameArray = explode(".", $_FILES["video"]["name"]);
+                    //get the last item in array - file extension
+                    $video_extensions = end($videoNameArray);
+                    if ((($_FILES["video"]["type"] == "video/webm") || ($_FILES["video"]["type"] == "video/mp4") || ($_FILES["video"]["type"] == "video/ogv")) && ($_FILES["video"]["size"] < 2097152) && in_array($video_extensions, $allowedVideoExtensions)) {
+                        if ($_FILES["video"]["error"] > 0) {
+                            $smarty->assign("video_error", $_FILES['video']['error']);
+                        } else {
+                            $targetVideoPath = "";
+                            if (file_exists("coupons/videos/" . $_FILES['video']['name'])) {
+                                $targetVideoPath = "coupons/videos/" . $_FILES['video']['name'];
+                            } else {
+                                $sourcePath = $_FILES['video']['tmp_name']; // Storing source path of the file in a variable
+                                $targetVideoPath = "coupons/videos/" . $_FILES['video']['name']; // Target path where file is to be stored
+                                move_uploaded_file($sourcePath, $targetVideoPath); // saving picture on server so it can be used for creating pdf
+                            }
+                        }
+                    }
+                }
+
+                $videoPath = $targetVideoPath;
+
+                generateSavePDF($title, $description, $imgPath, $pdfPath);
+                saveInDb($title, $imgPath, $pdfPath, $videoPath);
 
                 $location = "coupon-management.php";
                 header("Location: $location");
             }
         } else {
-            $smarty->assign("error", "invalid filesize or type");
-
+            $smarty->assign("image_error", "invalid filesize or type");
         }
     }
 
 
     ///Pressed delete button on table
-    if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['action']) && $_GET['action'] === 'delete') {
+    if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['action']) && $_GET['action'] === 'delete') {
         $id = $_GET['id'];
-        deleteCoupon($id);
+        $name = $_GET['name'];
+        deleteCoupon($id, $name);
     }
 
 
-    $smarty->assign("error", "");
+    $smarty->assign("video_error", "");
+    $smarty->assign("image_error", "");
     $smarty->assign("administrator", $administrator);
     $smarty->assign("loginDisplay", $loginButtonDisplay);
     $smarty->assign("signinDisplay", $signinButtonDisplay);
@@ -78,7 +99,7 @@ if (isset($_SESSION['user']) && in_array("administrator", $_SESSION['user'])) {
     $smarty->display("templates/coupon.tpl");
 }
 
-function generateSavePDF($title, $description, $imgPath, $dirPath) {
+function generateSavePDF($title, $description, $imgPath, $pdfPath) {
     $pdf = new FPDF();
 
     //set font
@@ -102,28 +123,42 @@ function generateSavePDF($title, $description, $imgPath, $dirPath) {
     $pdf->Image($imgPath, 10, 50, 100);
 
     //save PDF
-    $pdf->Output($dirPath, 'F');
+    $pdf->Output($pdfPath, 'F');
 }
 
-function saveInDB($title, $imgPath, $pdfPath) {
+function saveInDB($title, $imgPath, $pdfPath, $videoPath) {
     $db = new Database();
     $db->openConnectionDB();
-    $sql = "INSERT INTO kuponi_clanstva (naziv, pdf, slika) VALUES ('" . $title . "', '" . $pdfPath . "', '" . $imgPath . "')";
+    $sql = "";
+    if ($videoPath != "") {
+        $sql = "INSERT INTO kuponi_clanstva (naziv, pdf, slika, video) VALUES ('" . $title . "', '" . $pdfPath . "', '" . $imgPath . "', '" . $videoPath . "')";
+    } else {
+        $sql = "INSERT INTO kuponi_clanstva (naziv, pdf, slika) VALUES ('" . $title . "', '" . $pdfPath . "', '" . $imgPath . "')";
+    }
     $db->insertDB($sql);
     $db->closeConnectionDB();
 }
 
-function deleteCoupon($id) {
+function deleteCoupon($id, $name) {
     $location = "coupon-management.php";
     $db = new Database();
     $db->openConnectionDB();
 
     $sql = "DELETE FROM kuponi_clanstva WHERE  id_kupon_clanstva = $id";
+    $insert = "INSERT INTO proba2 (json) VALUES ('" . $name . "')";
+    $db->insertDB($insert);
+    $name = trim($name);
+    $filePath = "coupons/" . $name . ".pdf";
+
+    //check if file exist and delete it
+    if (file_exists($filePath)) {
+        unlink($filePath);
+    }
+
+
+ 
     $db->updateDB($sql, $location);
     $db->closeConnectionDB();
 }
-
-
-
 
 ?>
